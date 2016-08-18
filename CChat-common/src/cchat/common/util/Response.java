@@ -7,13 +7,9 @@ package cchat.common.util;
 
 /**
  *
- * @author Aluno
+ * @author Nome
  */
-public enum Request {
-    LOGAR,
-    CRIAR_GRUPO,
-    CONVIDAR_PARA_GRUPO,
-    REMOVER_DO_GRUPO,
-    ENVIAR_MENSAGEM,
-    RECEBER_MENSAGEM
+public enum Response {
+    SUCCESS,
+    FAILURE
 }

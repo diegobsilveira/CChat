@@ -5,21 +5,14 @@
  */
 package cchat.common.services;
 
-import cchat.common.model.domain.impl.Grupo;
+import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Usuario;
 
 /**
  *
- * @author Aluno
+ * @author Nome
  */
-public interface ICredenciar {
-
-    public boolean Logar(Usuario user);
-    
-    public boolean criarGrupo(Grupo group);
-
-    public boolean convidar(Grupo group);
-
-    public boolean sairGrupo(Grupo group);
-
+public interface IMensageiro {
+    public void send(Mensagem msg);
+    public Mensagem get(Usuario user);
 }

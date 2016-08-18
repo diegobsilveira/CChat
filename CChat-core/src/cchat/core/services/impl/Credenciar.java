@@ -5,33 +5,36 @@
  */
 package cchat.core.services.impl;
 
+import cchat.common.model.domain.impl.Grupo;
+import cchat.common.model.domain.impl.Usuario;
 import cchat.common.services.ICredenciar;
+import java.util.Iterator;
+import cchat.core.util.Data;
 
 /**
  *
  * @author Aluno
  */
-public class Credenciar implements ICredenciar{
+public class Credenciar implements ICredenciar {
 
     @Override
-    public synchronized void Logar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public synchronized boolean Logar(Usuario user) {
+        return Data.addUsers(user);
     }
 
     @Override
-    public synchronized void criarGrupo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public synchronized boolean criarGrupo(Grupo group) {
+        return Data.addGroups(group);
     }
 
     @Override
-    public synchronized void convidar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public synchronized boolean convidar(Grupo group) {
+        return Data.addToGroup(group);
     }
 
     @Override
-    public synchronized void expulsarGrupo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public synchronized boolean sairGrupo(Grupo group) {
+        return Data.removeFromGroups(group);
     }
-    
     
 }
