@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cchat.core.services.impl;
+package cchat.common.util;
 
 /**
  *
  * @author Aluno
  */
-public class Credenciamento {
-    
-    public synchronized void a(){
-        
-    }
-    
-    
+public enum Request {
+    LOGAR,
+    CRIAR_GRUPO,
+    CONVIDAR_PARA_GRUPO,
+    REMOVER_DO_GRUPO,
+    ENVIAR_MENSAGEM
 }

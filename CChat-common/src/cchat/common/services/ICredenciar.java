@@ -3,12 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cchat.core.services;
+package cchat.common.services;
 
 /**
  *
  * @author Aluno
  */
-public interface IManterUsuario {
+public interface ICredenciar {
+
+    public void Logar();
     
+    public void criarGrupo();
+
+    public void convidar();
+
+    public void expulsarGrupo();
+
 }

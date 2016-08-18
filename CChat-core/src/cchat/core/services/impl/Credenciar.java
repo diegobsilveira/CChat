@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cchat.core.services;
+package cchat.core.services.impl;
 
 /**
  *
  * @author Aluno
  */
-public interface IMensageiro {
-
-    public void enviarMensagem();
+public class Credenciar {
+    
+    public synchronized void a(){
+        
+    }
+    
+    
 }

@@ -5,7 +5,7 @@
  */
 package cchat.core.services.impl;
 
-import cchat.core.services.IMensageiro;
+import cchat.common.services.IMensageiro;
 
 /**
  *
