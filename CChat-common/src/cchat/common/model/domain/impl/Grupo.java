@@ -7,6 +7,7 @@ package cchat.common.model.domain.impl;
 
 import cchat.common.model.domain.IDestinatario;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -34,6 +35,30 @@ public class Grupo implements IDestinatario {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Grupo other = (Grupo) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        return true;
     }
 
 }

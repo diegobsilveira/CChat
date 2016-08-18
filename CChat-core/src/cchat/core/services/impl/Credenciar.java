@@ -5,14 +5,32 @@
  */
 package cchat.core.services.impl;
 
+import cchat.common.services.ICredenciar;
+
 /**
  *
  * @author Aluno
  */
-public class Credenciar {
-    
-    public synchronized void a(){
-        
+public class Credenciar implements ICredenciar{
+
+    @Override
+    public synchronized void Logar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public synchronized void criarGrupo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public synchronized void convidar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public synchronized void expulsarGrupo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

@@ -6,6 +6,8 @@
 package cchat.common.model.domain.impl;
 
 import cchat.common.model.domain.IDestinatario;
+import java.net.Socket;
+import java.util.Objects;
 
 /**
  *
@@ -13,18 +15,10 @@ import cchat.common.model.domain.IDestinatario;
  */
 public class Usuario implements IDestinatario {
 
-    private String ip;
     private String nome;
+    private Socket socket;
 
     public Usuario() {
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
     }
 
     public String getNome() {
@@ -35,4 +29,37 @@ public class Usuario implements IDestinatario {
         this.nome = nome;
     }
 
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
