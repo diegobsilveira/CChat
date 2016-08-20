@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'PL';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Proxima Nova Alt Light'), url('Mark Simonson - Proxima Nova Alt Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'museo';
+    font-style: normal;
+    font-weight: normal;
+    src: url('museo.otf');
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
