@@ -13,7 +13,7 @@ import cchat.common.services.IMensageiro;
  *
  * @author Nome
  */
-public class stubMensageiro implements IMensageiro{
+public class stubMensageiro implements IMensageiro, Runnable{
 
     private String serverAddress;
     private int serverPort;
@@ -30,6 +30,11 @@ public class stubMensageiro implements IMensageiro{
 
     @Override
     public Mensagem get(Usuario user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void run() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

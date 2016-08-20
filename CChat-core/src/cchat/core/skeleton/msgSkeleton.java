@@ -5,8 +5,6 @@
  */
 package cchat.core.skeleton;
 
-import cchat.common.model.domain.IDestinatario;
-import cchat.common.model.domain.IMensagem;
 import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Usuario;
@@ -21,7 +19,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -99,6 +96,9 @@ public class msgSkeleton implements Runnable {
                 case RECEBER_MENSAGEM:
                     user = (Usuario) reader.readObject();
                     writer.writeObject(mensageiro.get(user));
+                    writer.flush();
+                    break;
+                case UPTODATE:
                     break;
             }
             writer.flush();
@@ -111,9 +111,10 @@ public class msgSkeleton implements Runnable {
     @Override
     public void run() {
         try {
-            this.process();
-            this.getSocket().close();
-        } catch (IOException | ClassNotFoundException ex) {
+            while(!this.getSocket().isClosed()){
+                this.process();
+            }
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(msgSkeleton.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException(ex.getMessage());
         }
