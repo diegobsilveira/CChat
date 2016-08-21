@@ -11,10 +11,11 @@ package cchat.common.util;
  */
 public enum Request {
     LOGAR,
+    UPTODATE,
+    LISTAR_USUARIOS,
     CRIAR_GRUPO,
     CONVIDAR_PARA_GRUPO,
     REMOVER_DO_GRUPO,
     ENVIAR_MENSAGEM,
-    RECEBER_MENSAGEM,
-    UPTODATE
+    RECEBER_MENSAGEM
 }

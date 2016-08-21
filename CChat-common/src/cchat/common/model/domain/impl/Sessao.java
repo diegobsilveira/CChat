@@ -18,7 +18,6 @@ import java.util.Objects;
 public class Sessao implements IDestinatario, Serializable {
 
     private String nomeUsuario;
-    private Socket socket;
     private Date lastAccess;
 
     public Sessao() {
@@ -30,14 +29,6 @@ public class Sessao implements IDestinatario, Serializable {
 
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
-    }
-
-    public Socket getSocket() {
-        return socket;
-    }
-
-    public void setSocket(Socket socket) {
-        this.socket = socket;
     }
 
     @Override

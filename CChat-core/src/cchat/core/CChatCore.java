@@ -6,9 +6,12 @@
 package cchat.core;
 
 import cchat.core.skeleton.msgSkeleton;
+import cchat.core.util.Data;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,23 +19,38 @@ import java.net.Socket;
  */
 public class CChatCore {
 
-    public static void main (String args[]) throws IOException {
-        
+    public static void main(String args[]) throws IOException {
+
         ServerSocket server = null;
-        
+
         try {
+
+            Thread m = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        while (true) {
+                            Data.refreshUserList();
+                            Thread.sleep(30000);
+                        }
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(CChatCore.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+            m.start();
             server = new ServerSocket(2223);
 
-            while(true) {
+            while (true) {
                 Socket socket = server.accept();
                 msgSkeleton mensageiro = new msgSkeleton(socket);
                 Thread t = new Thread(mensageiro);
                 t.start();
             }
-        }
-        catch(Exception e) {
-            if (server != null)
+        } catch (Exception e) {
+            if (server != null) {
                 server.close();
+            }
         }
     }
 }

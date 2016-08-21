@@ -1,32 +1,30 @@
 package cchat.view;
 
 import cchat.common.model.domain.impl.Sessao;
-import cchat.common.services.IManterUsuario;
+import cchat.common.util.Response;
 import cchat.view.proxi.stubManterUsuario;
 
 public class CChatView {
- 
+
     public static void main(String args[]) {
         String IPServidor = "localhost";
         int PortaServidor = 2223;
- 
-        IManterUsuario credenciar = new stubManterUsuario(IPServidor, PortaServidor);
+
+        stubManterUsuario credenciar = new stubManterUsuario(IPServidor, PortaServidor);
         Sessao user = new Sessao();
-        user.setNomeUsuario("cleberso");
- 
-        Boolean logged = false;
- 
-        do {
-            logged = credenciar.Logar(user);
-            System.out.println("AINDA NAO LOGOU - TA NO LOOP");
-        } while (!logged);
-        System.out.println("LOGOU");
-       
-        /*
-        while(true){
-           
+
+        user.setNomeUsuario("cleberson");
+
+        Response logged = credenciar.Logar(user);
+
+        if (logged == Response.SUCCESS) {
+            System.out.println("LOGOU");
+            Thread teste = new Thread(credenciar);
+            teste.run();
+        } else if (logged == Response.FAILURE) {
+            System.out.println("JÁ EXISTE UM USUARIO COM ESSE NOME");
         }
-         */
+
     }
- 
+
 }

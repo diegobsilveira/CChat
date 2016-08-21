@@ -17,10 +17,12 @@ import cchat.common.util.Response;
 import cchat.core.services.impl.ManterGrupo;
 import cchat.core.services.impl.ManterUsuario;
 import cchat.core.services.impl.Mensageiro;
+import cchat.core.util.Data;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,13 +58,8 @@ public class msgSkeleton implements Runnable {
             switch (command) {
                 case LOGAR:
                     user = (Sessao) reader.readObject();
-                    System.out.println(user.getNomeUsuario());
-                    user.setSocket(this.getSocket());
-                    if (manterUsuario.Logar(user)) {
-                        writer.writeObject(Response.SUCCESS);
-                    } else {
-                        writer.writeObject(Response.FAILURE);
-                    }
+                    user.setLastAccess(new Date());
+                    writer.writeObject(manterUsuario.Logar(user));
                     writer.flush();
                     break;
                 case CRIAR_GRUPO:
@@ -104,6 +101,11 @@ public class msgSkeleton implements Runnable {
                 case UPTODATE:
                     user = (Sessao) reader.readObject();
                     manterUsuario.upToDate(user);
+                    writer.writeObject(Response.SUCCESS);
+                    writer.flush();
+                    break;
+                case LISTAR_USUARIOS:
+                    writer.writeObject(Data.getUserList());
                     writer.flush();
                     break;
             }
@@ -116,15 +118,12 @@ public class msgSkeleton implements Runnable {
     @Override
     public void run() {
         try {
-            while (!this.getSocket().isClosed()) {
-                this.process();
-                this.socket.close();
-            }
-        } catch (ClassNotFoundException ex) {
+            this.process();
+            this.getSocket().close();
+            
+        } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(msgSkeleton.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException(ex.getMessage());
-        } catch (IOException ex) {
-            Logger.getLogger(msgSkeleton.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

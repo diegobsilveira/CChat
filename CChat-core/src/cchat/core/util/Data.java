@@ -8,6 +8,7 @@ package cchat.core.util;
 import cchat.common.model.domain.impl.Sessao;
 import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Mensagem;
+import cchat.common.util.Response;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -26,7 +27,7 @@ public class Data {
 
     }
 
-    public static synchronized boolean addUsers(Sessao user) {
+    public static synchronized Response addUsers(Sessao user) {
         boolean encontrado = false;
         Iterator itr = users.iterator();
         while (itr.hasNext()) {
@@ -36,9 +37,9 @@ public class Data {
         }
         if (!encontrado) {
             users.add(user);
-            return true;
+            return Response.SUCCESS;
         } else {
-            return false;
+            return Response.FAILURE;
         }
     }
 
@@ -156,29 +157,42 @@ public class Data {
         }
     }
     
-    public static synchronized boolean updateUser(Sessao user) {
+    public static synchronized Response updateUser(Sessao user) {
         Sessao usuario = null;
         Iterator itr = users.iterator();
         while (itr.hasNext()) {
-            if (((Sessao) itr.next()).equals(user)) {
-                usuario = (Sessao) itr;
+            Sessao temp = (Sessao)itr.next();
+            if (temp.equals(user)) {
+                usuario = temp;
             }
         }
         if (usuario != null) {
             usuario.setLastAccess(new Date());
-            return true;
+            System.out.println("Nome : " + usuario.getNomeUsuario() + " Data : " + usuario.getLastAccess());
+            return Response.SUCCESS;
         } else {
-            return false;
+            return Response.FAILURE;
         }
     }
     
-    public static synchronized void refreshUserList(Sessao user) {
+    public static synchronized void refreshUserList() {
         Sessao usuario = null;
         Iterator itr = users.iterator();
         while (itr.hasNext()) {
-            if (((Sessao) itr.next()).equals(user)) {
-                usuario = (Sessao) itr;
+            Sessao temp = (Sessao) itr.next();
+            if((new Date()).getTime() - temp.getLastAccess().getTime() > 10000){
+                itr.remove();
             }
         }
     }
+    
+    public static ArrayList<String> getUserList() {
+        Iterator aux = users.iterator();
+        ArrayList<String> result = new ArrayList<>();
+        while(aux.hasNext()){
+            result.add(((Sessao)aux.next()).getNomeUsuario());
+        }
+        return result;
+    }
+    
 }

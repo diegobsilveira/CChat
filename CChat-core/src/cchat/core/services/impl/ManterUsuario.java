@@ -7,7 +7,9 @@ package cchat.core.services.impl;
 
 import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IManterUsuario;
+import cchat.common.util.Response;
 import cchat.core.util.Data;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,13 +18,18 @@ import cchat.core.util.Data;
 public class ManterUsuario implements IManterUsuario {
 
     @Override
-    public synchronized boolean Logar(Sessao user) {
+    public synchronized Response Logar(Sessao user) {
         return Data.addUsers(user);
     }
 
     @Override
-    public boolean upToDate(Sessao user) {
+    public synchronized Response upToDate(Sessao user) {
         return Data.updateUser(user);
+    }
+
+    @Override
+    public ArrayList<String> listarUsuarios() {
+        return Data.getUserList();
     }
 
 }
