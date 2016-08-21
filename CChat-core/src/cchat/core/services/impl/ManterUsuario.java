@@ -5,25 +5,24 @@
  */
 package cchat.core.services.impl;
 
-import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Sessao;
-import cchat.common.services.IMensageiro;
+import cchat.common.services.IManterUsuario;
 import cchat.core.util.Data;
 
 /**
  *
- * @author Nome
+ * @author Aluno
  */
-public class Mensageiro implements IMensageiro{
+public class ManterUsuario implements IManterUsuario {
 
     @Override
-    public synchronized void send(Mensagem msg) {
-        Data.addMsgs(msg);
+    public synchronized boolean Logar(Sessao user) {
+        return Data.addUsers(user);
     }
 
     @Override
-    public synchronized Mensagem get(Sessao user) {
-        return Data.removeMsg(user);
+    public boolean upToDate(Sessao user) {
+        return Data.updateUser(user);
     }
-    
+
 }

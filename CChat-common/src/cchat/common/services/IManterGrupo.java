@@ -5,14 +5,17 @@
  */
 package cchat.common.services;
 
-import cchat.common.model.domain.impl.Mensagem;
-import cchat.common.model.domain.impl.Sessao;
+import cchat.common.model.domain.impl.Grupo;
 
 /**
  *
  * @author Nome
  */
-public interface IMensageiro {
-    public void send(Mensagem msg);
-    public Mensagem get(Sessao user);
+public interface IManterGrupo {
+    
+    public boolean convidar(Grupo group);
+
+    public boolean criarGrupo(Grupo group);
+    
+    public boolean sairGrupo(Grupo group);
 }

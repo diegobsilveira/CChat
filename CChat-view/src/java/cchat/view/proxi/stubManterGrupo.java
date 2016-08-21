@@ -5,31 +5,26 @@
  */
 package cchat.view.proxi;
 
-import cchat.common.model.domain.impl.Mensagem;
-import cchat.common.model.domain.impl.Sessao;
-import cchat.common.services.IMensageiro;
+import cchat.common.model.domain.impl.Grupo;
+import cchat.common.services.IManterGrupo;
 
 /**
  *
  * @author Nome
  */
-public class stubMensageiro implements IMensageiro, Runnable{
-
-    private String serverAddress;
-    private int serverPort;
-    
-    public stubMensageiro(String serverAddress, int serverPort) {
-        this.serverAddress = serverAddress;
-        this.serverPort = serverPort;        
-    }
-    
+public class stubManterGrupo implements IManterGrupo,Runnable{
     @Override
-    public void send(Mensagem msg) {
+    public boolean criarGrupo(Grupo group) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Mensagem get(Sessao user) {
+    public boolean convidar(Grupo group) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean sairGrupo(Grupo group) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -37,5 +32,4 @@ public class stubMensageiro implements IMensageiro, Runnable{
     public void run() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

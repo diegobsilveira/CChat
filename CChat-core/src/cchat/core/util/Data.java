@@ -5,11 +5,11 @@
  */
 package cchat.core.util;
 
-import cchat.common.model.domain.IDestinatario;
-import cchat.common.model.domain.impl.Usuario;
+import cchat.common.model.domain.impl.Sessao;
 import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Mensagem;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 /**
@@ -18,7 +18,7 @@ import java.util.Iterator;
  */
 public class Data {
 
-    private static ArrayList<Usuario> users = new ArrayList<>();
+    private static ArrayList<Sessao> users = new ArrayList<>();
     private static ArrayList<Grupo> groups = new ArrayList<>();
     private static ArrayList<ArrayList<Mensagem>> msgs = new ArrayList<>();
 
@@ -26,11 +26,11 @@ public class Data {
 
     }
 
-    public static synchronized boolean addUsers(Usuario user) {
+    public static synchronized boolean addUsers(Sessao user) {
         boolean encontrado = false;
         Iterator itr = users.iterator();
         while (itr.hasNext()) {
-            if (((Usuario) itr.next()).equals(user)) {
+            if (((Sessao) itr.next()).equals(user)) {
                 encontrado = true;
             }
         }
@@ -70,7 +70,7 @@ public class Data {
             itr = group.getDestinos().iterator();
             while (itr.hasNext()) {
                 itr.next();
-                grupo.getDestinos().add((Usuario) itr);
+                grupo.getDestinos().add((Sessao) itr);
             }
             return true;
         } else {
@@ -94,12 +94,12 @@ public class Data {
         }
     }
 
-    public static synchronized boolean removeUsers(Usuario user) {
-        Usuario usuario = null;
+    public static synchronized boolean removeUsers(Sessao user) {
+        Sessao usuario = null;
         Iterator itr = users.iterator();
         while (itr.hasNext()) {
-            if (((Usuario) itr.next()).equals(user)) {
-                usuario = (Usuario) itr;
+            if (((Sessao) itr.next()).equals(user)) {
+                usuario = (Sessao) itr;
             }
         }
         if (usuario != null) {
@@ -121,11 +121,11 @@ public class Data {
         if (mensagem != null) {
             mensagem.add(msg);
         } else {
-            if (msg.getDestino() instanceof Usuario) {
+            if (msg.getDestino() instanceof Sessao) {
                 boolean encontrado = false;
                 Iterator iterator = users.iterator();
                 while (iterator.hasNext()) {
-                    if (((Usuario) iterator.next()).equals((Usuario) msg.getDestino())) {
+                    if (((Sessao) iterator.next()).equals((Sessao) msg.getDestino())) {
                         encontrado = true;
                     }
                 }
@@ -139,11 +139,11 @@ public class Data {
         }
     }
 
-    public static synchronized Mensagem removeMsg(Usuario user) {
+    public static synchronized Mensagem removeMsg(Sessao user) {
         ArrayList<Mensagem> mensagem = null;
         Iterator itr = msgs.iterator();
         while (itr.hasNext()) {
-            if (((Usuario) ((ArrayList<Mensagem>) itr.next()).get(0).getDestino()).equals(user)) {
+            if (((Sessao) ((ArrayList<Mensagem>) itr.next()).get(0).getDestino()).equals(user)) {
                 mensagem = (ArrayList<Mensagem>) itr;
             }
         }
@@ -153,6 +153,32 @@ public class Data {
             return temp;
         }else{
             return null;
+        }
+    }
+    
+    public static synchronized boolean updateUser(Sessao user) {
+        Sessao usuario = null;
+        Iterator itr = users.iterator();
+        while (itr.hasNext()) {
+            if (((Sessao) itr.next()).equals(user)) {
+                usuario = (Sessao) itr;
+            }
+        }
+        if (usuario != null) {
+            usuario.setLastAccess(new Date());
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static synchronized void refreshUserList(Sessao user) {
+        Sessao usuario = null;
+        Iterator itr = users.iterator();
+        while (itr.hasNext()) {
+            if (((Sessao) itr.next()).equals(user)) {
+                usuario = (Sessao) itr;
+            }
         }
     }
 }

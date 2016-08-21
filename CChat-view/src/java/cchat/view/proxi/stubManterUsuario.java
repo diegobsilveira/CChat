@@ -6,8 +6,8 @@
 package cchat.view.proxi;
 
 import cchat.common.model.domain.impl.Grupo;
-import cchat.common.model.domain.impl.Usuario;
-import cchat.common.services.ICredenciar;
+import cchat.common.model.domain.impl.Sessao;
+import cchat.common.services.IManterUsuario;
 import cchat.common.util.AbstractInOut;
 import cchat.common.util.Request;
 import cchat.common.util.Response;
@@ -21,17 +21,18 @@ import java.util.logging.Logger;
  *
  * @author Nome
  */
-public class stubCredenciar implements ICredenciar, Runnable{
+public class stubManterUsuario implements IManterUsuario, Runnable{
     
-    public stubCredenciar(String serverAddress, int serverPort) {
+    public stubManterUsuario(String serverAddress, int serverPort) {
     }
 
     @Override
-    public boolean Logar(Usuario user) {
+    public boolean Logar(Sessao user) {
         try {
             ObjectInputStream in = AbstractInOut.getObjectReader(Connection.connect());
             ObjectOutputStream out = AbstractInOut.getObjectWriter(Connection.connect());
             out.writeObject(Request.LOGAR);
+            out.flush();
             out.writeObject(user);
             out.flush();
             switch((Response)in.readObject()){
@@ -41,28 +42,18 @@ public class stubCredenciar implements ICredenciar, Runnable{
                     return false;
             }
         } catch (IOException | ClassNotFoundException ex) {
-            Logger.getLogger(stubCredenciar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(stubManterUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
-
-    @Override
-    public boolean criarGrupo(Grupo group) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean convidar(Grupo group) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean sairGrupo(Grupo group) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public void run() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean upToDate(Sessao user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

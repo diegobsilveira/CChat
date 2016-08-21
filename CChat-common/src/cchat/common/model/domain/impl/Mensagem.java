@@ -14,18 +14,18 @@ import cchat.common.model.domain.IMensagem;
  */
 public class Mensagem implements IMensagem {
 
-    private Usuario origem;
+    private Sessao origem;
     private IDestinatario destino;
     private String mensagem;
 
     public Mensagem() {
     }
 
-    public Usuario getOrigem() {
+    public Sessao getOrigem() {
         return origem;
     }
 
-    public void setOrigem(Usuario origem) {
+    public void setOrigem(Sessao origem) {
         this.origem = origem;
     }
 

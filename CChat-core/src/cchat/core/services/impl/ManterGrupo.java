@@ -6,22 +6,14 @@
 package cchat.core.services.impl;
 
 import cchat.common.model.domain.impl.Grupo;
-import cchat.common.model.domain.impl.Usuario;
-import cchat.common.services.ICredenciar;
-import java.util.Iterator;
+import cchat.common.services.IManterGrupo;
 import cchat.core.util.Data;
 
 /**
  *
- * @author Aluno
+ * @author Nome
  */
-public class Credenciar implements ICredenciar {
-
-    @Override
-    public synchronized boolean Logar(Usuario user) {
-        return Data.addUsers(user);
-    }
-
+public class ManterGrupo implements IManterGrupo{
     @Override
     public synchronized boolean criarGrupo(Grupo group) {
         return Data.addGroups(group);
@@ -36,5 +28,4 @@ public class Credenciar implements ICredenciar {
     public synchronized boolean sairGrupo(Grupo group) {
         return Data.removeFromGroups(group);
     }
-    
 }

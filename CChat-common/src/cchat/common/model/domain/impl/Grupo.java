@@ -15,17 +15,17 @@ import java.util.Objects;
  */
 public class Grupo implements IDestinatario {
 
-    private ArrayList<Usuario> destinos;
+    private ArrayList<Sessao> destinos;
     private String nome;
 
     public Grupo() {
     }
 
-    public ArrayList<Usuario> getDestinos() {
+    public ArrayList<Sessao> getDestinos() {
         return destinos;
     }
 
-    public void setDestinos(ArrayList<Usuario> destinos) {
+    public void setDestinos(ArrayList<Sessao> destinos) {
         this.destinos = destinos;
     }
 
