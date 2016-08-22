@@ -37,8 +37,10 @@ public class Data {
         }
         if (!encontrado) {
             users.add(user);
-            return Response.SUCCESS;
+            System.out.println(" USUARIO LOGADO COM SUCESSO - "+user.getNomeUsuario());
+            return Response.SUCCESS;            
         } else {
+            System.out.println(" USUARIO FALHOU AO LOGAR    - "+user.getNomeUsuario());
             return Response.FAILURE;
         }
     }
@@ -180,7 +182,7 @@ public class Data {
         Iterator itr = users.iterator();
         while (itr.hasNext()) {
             Sessao temp = (Sessao) itr.next();
-            if((new Date()).getTime() - temp.getLastAccess().getTime() > 10000){
+            if((new Date()).getTime() - temp.getLastAccess().getTime() > 60000){
                 itr.remove();
             }
         }
