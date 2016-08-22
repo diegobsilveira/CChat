@@ -45,7 +45,7 @@
                   ">JUNTE-SE</span>
 
 
-            <form id="form" action="/chat/servletweb?acao=Login" method="POST">
+            <form id="form" action="/chat/servletweb?acao=Login&type=refresh" method="POST">
                 <div style="
                      margin: 0 auto;
                      width: 500px;

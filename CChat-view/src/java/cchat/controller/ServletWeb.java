@@ -22,13 +22,29 @@ public class ServletWeb extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
         String acao = request.getParameter("acao");
+        String type = request.getParameter("type");
          
-        if(acao.equals("Login"))
-            jsp = Login.execute(request);
+        switch (acao) {
+            case "Login":
+                jsp = Login.execute(request);
+                break;
+            case "userList":
+                response.setContentType("text/plain");  
+                response.setCharacterEncoding("UTF-8"); 
+                response.getWriter().write("Insira seu codigo malegno aqui"); 
+                break;
+        }
         
         //Redirecionando pagina
-        RequestDispatcher rd = request.getRequestDispatcher(jsp);
-        rd.forward(request, response); 
+        switch (type) {
+            case "refresh":
+                RequestDispatcher rd = request.getRequestDispatcher(jsp);
+                rd.forward(request, response); 
+            break;
+            case "async":
+                
+            break;
+        }
         
     }    
 }
