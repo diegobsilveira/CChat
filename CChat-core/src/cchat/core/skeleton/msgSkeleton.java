@@ -58,7 +58,7 @@ public class msgSkeleton implements Runnable {
                 case LOGAR:
                     user = (Sessao) reader.readObject();
                     user.setLastAccess(new Date());
-                    writer.writeObject(manterUsuario.Logar(user));
+                    writer.writeBoolean(manterUsuario.Logar(user));
                     writer.flush();
                     break;
                 case CRIAR_GRUPO:

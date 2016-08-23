@@ -25,6 +25,7 @@ public class Login {
             IManterUsuario manter = new stubManterUsuario(host,port);
             
             if(manter.Logar(user)){                
+                System.out.println("Dento");
                 jsp = "/room.jsp";
                 request.setAttribute("usrList", manter.listarUsuarios());
 //                request.setAttribute("", port);

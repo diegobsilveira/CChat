@@ -44,6 +44,8 @@ public class stubManterUsuario implements IManterUsuario {
             boolean resposta = in.readBoolean();
             if(resposta)
                 this.user = user;
+            
+            System.out.println(resposta);
             return resposta;
         } catch (IOException ex) {
             return false;
