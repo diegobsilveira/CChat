@@ -5,7 +5,6 @@ import cchat.common.services.IManterUsuario;
 import cchat.view.proxi.stubManterUsuario;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import cchat.common.util.Response;
 
 /**
  *
@@ -25,7 +24,7 @@ public class Login {
             
             IManterUsuario manter = new stubManterUsuario(host,port);
             
-            if(manter.Logar(user) == Response.SUCCESS){                
+            if(manter.Logar(user)){                
                 jsp = "/room.jsp";
                 request.setAttribute("usrList", manter.listarUsuarios());
 //                request.setAttribute("", port);

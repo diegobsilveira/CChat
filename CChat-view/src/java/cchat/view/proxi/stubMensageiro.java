@@ -8,34 +8,53 @@ package cchat.view.proxi;
 import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IMensageiro;
+import cchat.common.util.AbstractInOut;
+import cchat.common.util.Request;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 /**
  *
  * @author Nome
  */
-public class stubMensageiro implements IMensageiro, Runnable{
+public class stubMensageiro implements IMensageiro{
 
-    private String serverAddress;
-    private int serverPort;
-    
-    public stubMensageiro(String serverAddress, int serverPort) {
-        this.serverAddress = serverAddress;
-        this.serverPort = serverPort;        
+    private Socket socket;
+    private String host = "localhost";
+    private int port = 2223;
+
+    public stubMensageiro(String host, int port) {
+        this.host = host;
+        this.port = port;
     }
-    
     @Override
     public void send(Mensagem msg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            socket = new Socket(host, port);
+            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
+            out.writeObject(Request.ENVIAR_MENSAGEM);
+            out.writeObject(msg);
+            out.flush();
+        } catch (IOException ex) {
+            
+        }
     }
 
     @Override
     public Mensagem get(Sessao user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            socket = new Socket(host, port);
+            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
+            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
+            out.writeObject(Request.RECEBER_MENSAGEM);
+            out.writeObject(user);
+            out.flush();
+            return (Mensagem) in.readObject();
+        } catch (IOException | ClassNotFoundException ex) {
+            return null;
+        }
     }
 
-    @Override
-    public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

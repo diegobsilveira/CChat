@@ -1,7 +1,6 @@
 package cchat.view;
 
 import cchat.common.model.domain.impl.Sessao;
-import cchat.common.util.Response;
 import cchat.view.proxi.stubManterUsuario;
 
 public class CChatView {
@@ -15,13 +14,11 @@ public class CChatView {
 
         user.setNomeUsuario("cleberson");
 
-        Response logged = credenciar.Logar(user);
+        boolean logged = credenciar.Logar(user);
 
-        if (logged == Response.SUCCESS) {
+        if (logged) {
             System.out.println("LOGOU");
-            Thread teste = new Thread(credenciar);
-            teste.run();
-        } else if (logged == Response.FAILURE) {
+        } else{
             System.out.println("JÁ EXISTE UM USUARIO COM ESSE NOME");
         }
 

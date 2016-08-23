@@ -9,20 +9,17 @@ import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IManterUsuario;
 import cchat.common.util.AbstractInOut;
 import cchat.common.util.Request;
-import cchat.common.util.Response;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Nome
  */
-public class stubManterUsuario implements IManterUsuario, Runnable {
+public class stubManterUsuario implements IManterUsuario {
 
     private Sessao user;
     private Socket socket;
@@ -35,7 +32,7 @@ public class stubManterUsuario implements IManterUsuario, Runnable {
     }
 
     @Override
-    public Response Logar(Sessao user) {
+    public boolean Logar(Sessao user) {
         try {
             socket = new Socket(host, port);
             ObjectInputStream in = AbstractInOut.getObjectReader(socket);
@@ -44,17 +41,17 @@ public class stubManterUsuario implements IManterUsuario, Runnable {
             out.writeObject(Request.LOGAR);
             out.writeObject(user);
             out.flush();
-            Response resposta = (Response) in.readObject();
-            if(resposta == Response.SUCCESS)
+            boolean resposta = in.readBoolean();
+            if(resposta)
                 this.user = user;
             return resposta;
-        } catch (IOException | ClassNotFoundException ex) {
-            return Response.FAILURE;
+        } catch (IOException ex) {
+            return false;
         }
     }
 
     @Override
-    public Response upToDate(Sessao user) {
+    public boolean upToDate(Sessao user) {
         try {
             socket = new Socket(host, port);
             ObjectInputStream in = AbstractInOut.getObjectReader(socket);
@@ -62,9 +59,9 @@ public class stubManterUsuario implements IManterUsuario, Runnable {
             out.writeObject(Request.UPTODATE);
             out.writeObject(user);
             out.flush();
-            return (Response) in.readObject();
-        } catch (IOException | ClassNotFoundException ex) {
-            return Response.FAILURE;
+            return in.readBoolean();
+        } catch (IOException ex) {
+            return false;
         }
     }
     
@@ -83,17 +80,4 @@ public class stubManterUsuario implements IManterUsuario, Runnable {
         }
     }
 
-    @Override
-    public void run() {
-        try {
-            if(user != null){
-                while(true){
-                    this.upToDate(user);
-                    Thread.sleep(3000);
-                }
-            }
-        } catch (InterruptedException ex) {
-            Logger.getLogger(stubManterUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }

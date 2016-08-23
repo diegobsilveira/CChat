@@ -13,7 +13,6 @@ import cchat.common.services.IManterUsuario;
 import cchat.common.services.IMensageiro;
 import cchat.common.util.AbstractInOut;
 import cchat.common.util.Request;
-import cchat.common.util.Response;
 import cchat.core.services.impl.ManterGrupo;
 import cchat.core.services.impl.ManterUsuario;
 import cchat.core.services.impl.Mensageiro;
@@ -65,27 +64,27 @@ public class msgSkeleton implements Runnable {
                 case CRIAR_GRUPO:
                     group = (Grupo) reader.readObject();
                     if (manterGrupo.criarGrupo(group)) {
-                        writer.writeObject(Response.SUCCESS);
+                        writer.writeBoolean(true);
                     } else {
-                        writer.writeObject(Response.FAILURE);
+                        writer.writeBoolean(false);
                     }
                     writer.flush();
                     break;
                 case CONVIDAR_PARA_GRUPO:
                     group = (Grupo) reader.readObject();
                     if (manterGrupo.convidar(group)) {
-                        writer.writeObject(Response.SUCCESS);
+                        writer.writeBoolean(true);
                     } else {
-                        writer.writeObject(Response.FAILURE);
+                        writer.writeBoolean(false);
                     }
                     writer.flush();
                     break;
                 case REMOVER_DO_GRUPO:
                     group = (Grupo) reader.readObject();
                     if (manterGrupo.sairGrupo(group)) {
-                        writer.writeObject(Response.SUCCESS);
+                        writer.writeBoolean(true);
                     } else {
-                        writer.writeObject(Response.FAILURE);
+                        writer.writeBoolean(false);
                     }
                     writer.flush();
                     break;
@@ -101,8 +100,6 @@ public class msgSkeleton implements Runnable {
                 case UPTODATE:
                     user = (Sessao) reader.readObject();
                     manterUsuario.upToDate(user);
-                    writer.writeObject(Response.SUCCESS);
-                    writer.flush();
                     break;
                 case LISTAR_USUARIOS:
                     writer.writeObject(Data.getUserList());

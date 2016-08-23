@@ -8,7 +8,6 @@ package cchat.core.util;
 import cchat.common.model.domain.impl.Sessao;
 import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Mensagem;
-import cchat.common.util.Response;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -27,7 +26,7 @@ public class Data {
 
     }
 
-    public static synchronized Response addUsers(Sessao user) {
+    public static synchronized boolean addUsers(Sessao user) {
         boolean encontrado = false;
         Iterator itr = users.iterator();
         while (itr.hasNext()) {
@@ -38,10 +37,10 @@ public class Data {
         if (!encontrado) {
             users.add(user);
             System.out.println(" USUARIO LOGADO COM SUCESSO - "+user.getNomeUsuario());
-            return Response.SUCCESS;            
+            return true;            
         } else {
             System.out.println(" USUARIO FALHOU AO LOGAR    - "+user.getNomeUsuario());
-            return Response.FAILURE;
+            return false;
         }
     }
 
@@ -159,7 +158,7 @@ public class Data {
         }
     }
     
-    public static synchronized Response updateUser(Sessao user) {
+    public static synchronized boolean updateUser(Sessao user) {
         Sessao usuario = null;
         Iterator itr = users.iterator();
         while (itr.hasNext()) {
@@ -171,9 +170,9 @@ public class Data {
         if (usuario != null) {
             usuario.setLastAccess(new Date());
             System.out.println("Nome : " + usuario.getNomeUsuario() + " Data : " + usuario.getLastAccess());
-            return Response.SUCCESS;
+            return true;
         } else {
-            return Response.FAILURE;
+            return false;
         }
     }
     

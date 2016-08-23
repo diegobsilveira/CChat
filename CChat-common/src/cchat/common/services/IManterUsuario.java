@@ -6,7 +6,6 @@
 package cchat.common.services;
 
 import cchat.common.model.domain.impl.Sessao;
-import cchat.common.util.Response;
 import java.util.ArrayList;
 
 /**
@@ -15,9 +14,9 @@ import java.util.ArrayList;
  */
 public interface IManterUsuario {
 
-    public Response Logar(Sessao user);
+    public boolean Logar(Sessao user);
     
-    public Response upToDate(Sessao user); 
+    public boolean upToDate(Sessao user); 
     
     public ArrayList<String> listarUsuarios(); 
 }

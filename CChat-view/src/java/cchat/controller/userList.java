@@ -1,11 +1,8 @@
 package cchat.controller;
 
-import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IManterUsuario;
 import cchat.view.proxi.stubManterUsuario;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import cchat.common.util.Response;
 import java.util.ArrayList;
 
 /**
