@@ -1,6 +1,6 @@
 // um dia talvez quem sabe tenha a chance de repentinamente pensar na possibilidade de quase se imaginar em escrever código aqui
-
-document.getElementById("id_of_textbox").addEventListener("keyup",
+/*
+document.getElementById("campo").addEventListener("keyup",
         function (event) {
             event.preventDefault();
             if (event.keyCode == 13) {
@@ -8,6 +8,7 @@ document.getElementById("id_of_textbox").addEventListener("keyup",
             }
         }
 );
+*/
 
 function envia(){
     alert("NAO VAI ENVIAR MENSAGEM NAO! NAO VAI NAO!");   
@@ -15,14 +16,31 @@ function envia(){
 }
 
 setInterval(function(){
-    var http = new XMLHttpRequest();
+    
+    var http = new XMLHttpRequest();    
+    var users = document.getElementById("users");
+    var groups = document.getElementById("groups");
+    var msgs = document.getElementById("msgs");
+    
     http.onreadystatechange = function() {
+        var u;
+        var username = "";
+        var xmlDoc,parser;
+        
         if (http.readyState == 4 && http.status == 200) {
             
-            //insira seu codigo monstruoso aqui;
-            alert(http.responseText);
+            parser = new DOMParser();
+            xmlDoc = parser.parseFromString(http.responseText, "text/xml");            
+            u = xmlDoc.getElementsByTagName("name");            
+            
+            for (i = 0; i < u.length; i++) {
+               username += ("<li><a>"+u[i].childNodes[0].nodeValue+"</a></li>");
+            }
         }
+        users.innerHTML = username;
     };
+    
     http.open("GET", "?acao=userList&type=async", true);
     http.send();
-},1000);
+    
+},5000);

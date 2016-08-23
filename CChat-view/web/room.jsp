@@ -4,7 +4,7 @@
 <%@page import="cchat.common.model.domain.impl.*" %>
 
 <%   
-    
+ /*   
     String nickS = (String)session.getAttribute("nick");
     if(null == nickS){
         nickS = "";
@@ -15,8 +15,7 @@
         listaU = (ArrayList) request.getAttribute("usrList");
     }
     
-      
-/*
+ 
     String nick  = request.getParameter("nick");
     if(null != nick){
        nick = nickS + nick;
@@ -26,14 +25,13 @@
     }
         
     System.out.println("nick = "+nick);
-    */
-    System.out.println("nickS = "+nickS);
+    
+    System.out.println("nickS = "+nickS);+ */
 %>
 <html lang="en"><head>
         <meta charset="utf-8">
         <title>CHAT</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <meta http-equiv="refresh" content="1">
         <link rel="stylesheet" href="css.css">
         <style>
             ::-webkit-input-placeholder {
@@ -67,7 +65,7 @@
                     </div>
 
                     <div class="body">
-                        <ul>
+                        <ul id="gmsgs" >
                             <%
                                 // ? = request.getParameter("msgList");
                                 for (int i = 0; i < 100; i++) { %>
@@ -95,7 +93,7 @@
                 <div class="nav">
                     <div class="salas" style="border-bottom: 1px solid gainsboro;">
                         <h2>GRUPO</h2>
-                        <ul>
+                        <ul id="groups">
                             <%/*
                                ArrayList<String> listaG = (ArrayList) request.getAttribute("grpList");
                               if(listaG != null){
@@ -107,7 +105,8 @@
                         </ul>
                     </div>
 
-                    <div class="salas"><h2>PESSOAS</h2><ul>
+                    <div class="salas"><h2>PESSOAS</h2>
+                        <ul id="users">
                             <% /*                                 
                                 if(listaU != null){
                                     System.out.println("Tamanho do array = "+listaU.size());

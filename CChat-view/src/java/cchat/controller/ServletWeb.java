@@ -8,9 +8,11 @@ package cchat.controller;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,9 +31,19 @@ public class ServletWeb extends HttpServlet {
                 jsp = Login.execute(request);
                 break;
             case "userList":
-                response.setContentType("text/plain");  
-                response.setCharacterEncoding("UTF-8"); 
-                response.getWriter().write("Insira seu codigo malegno aqui"); 
+                ArrayList<String> users = userList.execute(request);     
+                
+                response.setContentType("text/xml;charset=UTF-8");  
+                PrintWriter p = response.getWriter();
+                p.append("<g>");
+                for(String s : users){
+                    p.append("<user>");
+                    p.append("<name>").append(s).append("</name>");
+                    p.append("</user>"); 
+                }
+                p.append("</g>");
+                
+                //response.getWriter().write("Insira seu codigo malegno aqui"); 
                 break;
         }
         
