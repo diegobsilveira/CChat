@@ -27,20 +27,36 @@ public class ServletWeb extends HttpServlet {
         String acao = request.getParameter("acao");
         String type = request.getParameter("type");
         PrintWriter p ;
-        ArrayList<String> users;
+        ArrayList<String> nameList;
         ArrayList<Mensagem> msgList;
         
         switch (acao) {
             case "Login":
                 jsp = Login.execute(request);
                 break;
+            case "Update":
+                Update.execute(request);
+                break;
             case "userList":
-                users = userList.execute(request);     
+                nameList = userList.execute(request);     
                 
                 response.setContentType("text/xml;charset=UTF-8");  
                 p = response.getWriter();
                 p.append("<g>");
-                for(String s : users){
+                for(String s : nameList){
+                    p.append("<user>");
+                    p.append("<name>").append(s).append("</name>");
+                    p.append("</user>"); 
+                }
+                p.append("</g>");
+                response.getWriter().write(jsp);
+                break;
+            case "groupList":
+                nameList = groupList.execute(request);     
+                response.setContentType("text/xml;charset=UTF-8");  
+                p = response.getWriter();
+                p.append("<g>");
+                for(String s : nameList){
                     p.append("<user>");
                     p.append("<name>").append(s).append("</name>");
                     p.append("</user>"); 

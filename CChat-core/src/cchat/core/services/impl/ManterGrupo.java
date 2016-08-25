@@ -8,12 +8,14 @@ package cchat.core.services.impl;
 import cchat.common.model.domain.impl.Grupo;
 import cchat.common.services.IManterGrupo;
 import cchat.core.util.Data;
+import java.util.ArrayList;
 
 /**
  *
  * @author Nome
  */
-public class ManterGrupo implements IManterGrupo{
+public class ManterGrupo implements IManterGrupo {
+
     @Override
     public synchronized boolean criarGrupo(Grupo group) {
         return Data.addGroups(group);
@@ -27,5 +29,10 @@ public class ManterGrupo implements IManterGrupo{
     @Override
     public synchronized boolean sairGrupo(Grupo group) {
         return Data.removeFromGroups(group);
+    }
+
+    @Override
+    public ArrayList<String> listarGrupos() {
+        return Data.getGroupList();
     }
 }

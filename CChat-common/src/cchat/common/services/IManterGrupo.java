@@ -6,6 +6,7 @@
 package cchat.common.services;
 
 import cchat.common.model.domain.impl.Grupo;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,4 +19,6 @@ public interface IManterGrupo {
     public boolean criarGrupo(Grupo group);
     
     public boolean sairGrupo(Grupo group);
+    
+    public ArrayList<String> listarGrupos();
 }

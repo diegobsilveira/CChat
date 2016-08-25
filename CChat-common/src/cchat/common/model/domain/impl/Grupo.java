@@ -6,6 +6,7 @@
 package cchat.common.model.domain.impl;
 
 import cchat.common.model.domain.IDestinatario;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -13,12 +14,14 @@ import java.util.Objects;
  *
  * @author Aluno
  */
-public class Grupo implements IDestinatario {
+public class Grupo implements IDestinatario, Serializable {
 
     private ArrayList<Sessao> destinos;
     private String nome;
 
     public Grupo() {
+        destinos = new ArrayList<>();
+        nome = "";
     }
 
     public ArrayList<Sessao> getDestinos() {
@@ -60,5 +63,7 @@ public class Grupo implements IDestinatario {
         }
         return true;
     }
+
+    
 
 }

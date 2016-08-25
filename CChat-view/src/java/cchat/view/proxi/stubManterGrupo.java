@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -55,6 +56,21 @@ public class stubManterGrupo implements IManterGrupo{
     @Override
     public boolean sairGrupo(Grupo group) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<String> listarGrupos() {
+        try {
+            socket = new Socket(host, port);
+            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
+            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
+            out.writeObject(Request.LISTAR_GRUPOS);
+            out.flush();
+            ArrayList<String> resposta = (ArrayList<String>) in.readObject();
+            return resposta;
+        } catch (IOException | ClassNotFoundException ex) {
+            return null;
+        }
     }
 
 }

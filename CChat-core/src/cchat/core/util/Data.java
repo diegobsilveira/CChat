@@ -22,17 +22,27 @@ public class Data {
     private static ArrayList<Grupo> groups = new ArrayList<>();
     private static ArrayList<ArrayList<Mensagem>> msgs = new ArrayList<>();
 
+    public static ArrayList<String> getGroupList() {
+        Iterator aux = groups.iterator();
+        ArrayList<String> result = new ArrayList<>();
+        while(aux.hasNext()){
+            result.add(((Grupo)aux.next()).getNome());
+        }
+        return result;
+    }
+
     public Data() {
         Grupo geral = new Grupo();
-        geral.setNome("Geral");
+        geral.setNome("GERAL");
         groups.add(geral);
     }
 
     public static synchronized boolean addUsers(Sessao user) {
         boolean encontrado = false;
         Iterator itr = users.iterator();
+        System.out.println(user.getNome());
         Grupo geral = new Grupo();
-        geral.setNome("Geral");
+        geral.setNome("GERAL");
         geral.getDestinos().add(user);
         while (itr.hasNext()) {
             if (((Sessao) itr.next()).equals(user)) {
@@ -69,15 +79,15 @@ public class Data {
         Grupo grupo = null;
         Iterator itr = groups.iterator();
         while (itr.hasNext()) {
-            if (((Grupo) itr.next()).equals(group)) {
-                grupo = (Grupo) itr;
+            Grupo atual = (Grupo) itr.next(); 
+            if (atual.equals(group)) {
+                grupo = atual;
             }
         }
         if (grupo != null) {
             itr = group.getDestinos().iterator();
             while (itr.hasNext()) {
-                itr.next();
-                grupo.getDestinos().add((Sessao) itr);
+                grupo.getDestinos().add((Sessao) itr.next());
             }
             return true;
         } else {
@@ -89,8 +99,9 @@ public class Data {
         Grupo grupo = null;
         Iterator itr = groups.iterator();
         while (itr.hasNext()) {
-            if (((Grupo) itr.next()).equals(group)) {
-                grupo = (Grupo) itr;
+            Grupo atual = (Grupo) itr.next();
+            if (atual.equals(group)) {
+                grupo = atual;
             }
         }
         if (grupo != null) {
@@ -105,7 +116,7 @@ public class Data {
         Sessao usuario = null;
         Iterator itr = users.iterator();
         Grupo geral = new Grupo();
-        geral.setNome("Geral");
+        geral.setNome("GERAL");
         geral.getDestinos().add(user);
         
         while (itr.hasNext()) {
@@ -126,8 +137,9 @@ public class Data {
         ArrayList<Mensagem> mensagem = null;
         Iterator itr = msgs.iterator();
         while (itr.hasNext()) {
-            if (((ArrayList<Mensagem>) itr.next()).get(0).getDestino().equals(msg.getDestino())) {
-                mensagem = (ArrayList<Mensagem>) itr;
+            ArrayList<Mensagem> atual = (ArrayList<Mensagem>) itr.next();
+            if (atual.get(0).getDestino().equals(msg.getDestino())) {
+                mensagem = atual;
             }
         }
         if (mensagem != null) {
@@ -179,7 +191,6 @@ public class Data {
         }
         if (usuario != null) {
             usuario.setLastAccess(new Date());
-            System.out.println("Nome : " + usuario.getNome() + " Data : " + usuario.getLastAccess());
             return true;
         } else {
             return false;

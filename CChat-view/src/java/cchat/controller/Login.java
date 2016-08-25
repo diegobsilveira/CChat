@@ -1,5 +1,6 @@
 package cchat.controller;
 
+import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IManterUsuario;
 import cchat.view.proxi.stubManterUsuario;
@@ -20,16 +21,15 @@ public class Login {
             String nick = request.getParameter("nick");   
             Sessao user = new Sessao();
             user.setNome(nick);
-            
+            Grupo geral = new Grupo();
+            geral.setNome("GERAL");
             IManterUsuario manter = new stubManterUsuario(host,port);
             
             if(manter.Logar(user)){        
-                System.out.println("Dento");
                 jsp = "/room.jsp";
                 request.setAttribute("usrList", manter.listarUsuarios());
                 request.getSession().setAttribute("user", user);
-//                request.setAttribute("", port);
-//                request.setAttribute("", port);
+                request.getSession().setAttribute("sala", geral);
             }            
             
         } catch (Exception e) {

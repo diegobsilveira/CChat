@@ -9,12 +9,6 @@
             <file>file:/I:/CHAT/CChat-view/src/java/cchat/controller/ServletWeb.java</file>
             <file>file:/I:/CHAT/CChat-view/web/room.jsp</file>
         </group>
-        <group>
-            <file>file:/I:/CHAT/CChat-view/web/script.js</file>
-            <file>file:/I:/CHAT/CChat-view/src/java/cchat/controller/Login.java</file>
-            <file>file:/I:/CHAT/CChat-view/src/java/cchat/controller/userList.java</file>
-            <file>file:/I:/CHAT/CChat-view/src/java/cchat/controller/ServletWeb.java</file>
-            <file>file:/I:/CHAT/CChat-view/web/room.jsp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

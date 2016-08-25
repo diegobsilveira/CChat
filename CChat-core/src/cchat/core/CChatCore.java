@@ -22,7 +22,7 @@ public class CChatCore {
     public static void main(String args[]) throws IOException {
 
         ServerSocket server = null;
-
+        new Data();
         try {
 
             Thread m = new Thread(new Runnable() {

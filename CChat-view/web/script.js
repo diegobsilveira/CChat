@@ -12,20 +12,20 @@ function abobora(){
 }
 
 function envia(){
-    //alert("NAO VAI ENVIAR MENSAGEM NAO! NAO VAI NAO!");   
     var msg = document.getElementById("campo").value;
     document.getElementById("campo").value="";
     document.getElementById("msgs").innerHTML+="<li class='msg'><h4 id='remetente'>"+document.getElementById("nickname").innerHTML+"</h4><span id='mensagem'>"+msg+"</span></li>";
     var objDiv = document.getElementById("wrapper");
     objDiv.scrollTop = objDiv.scrollHeight;
+    var http = new XMLHttpRequest();
+    http.open("GET", "?acao=sendMessage&type=async&msg="+encodeURI(msg), true);
+    http.send();
 }
 
-setInterval(function(){
+var refreshUsers = setInterval(function(){
     
     var http = new XMLHttpRequest();    
     var users = document.getElementById("users");
-    var groups = document.getElementById("groups");
-    var msgs = document.getElementById("msgs");
     
     http.onreadystatechange = function() {
         var u;
@@ -50,12 +50,10 @@ setInterval(function(){
     
 },5000);
 
-setInterval(function(){
+var refreshUsers = setInterval(function(){
     
     var http = new XMLHttpRequest();    
     var users = document.getElementById("users");
-    var groups = document.getElementById("groups");
-    var msgs = document.getElementById("msgs");
     
     http.onreadystatechange = function() {
         var u;
@@ -76,6 +74,43 @@ setInterval(function(){
     };
     
     http.open("GET", "?acao=userList&type=async", true);
+    http.send();
+    
+},5000);
+
+var refreshGrupos = setInterval(function(){
+    
+    var http = new XMLHttpRequest();    
+    var groups = document.getElementById("groups");
+    
+    http.onreadystatechange = function() {
+        var u;
+        var username = "";
+        var xmlDoc,parser;
+        
+        if (http.readyState == 4 && http.status == 200) {
+            
+            parser = new DOMParser();
+            xmlDoc = parser.parseFromString(http.responseText, "text/xml");            
+            u = xmlDoc.getElementsByTagName("name");            
+            
+            for (i = 0; i < u.length; i++) {
+               username += ("<li><a>"+u[i].childNodes[0].nodeValue+"</a></li>");
+            }
+        }
+        groups.innerHTML = username;
+    };
+    
+    http.open("GET", "?acao=groupList&type=async", true);
+    http.send();
+    
+},5000);
+
+
+var update = setInterval(function(){
+    
+    var http = new XMLHttpRequest();    
+    http.open("GET", "?acao=Update&type=async", true);
     http.send();
     
 },5000);

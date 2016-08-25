@@ -7,18 +7,20 @@ package cchat.common.model.domain.impl;
 
 import cchat.common.model.domain.IDestinatario;
 import cchat.common.model.domain.IMensagem;
+import java.io.Serializable;
 
 /**
  *
  * @author Aluno
  */
-public class Mensagem implements IMensagem {
+public class Mensagem implements IMensagem, Serializable {
 
     private Sessao origem;
     private IDestinatario destino;
     private String mensagem;
 
     public Mensagem() {
+        origem = new Sessao();
     }
 
     public Sessao getOrigem() {

@@ -105,6 +105,10 @@ public class msgSkeleton implements Runnable {
                     writer.writeObject(Data.getUserList());
                     writer.flush();
                     break;
+                case LISTAR_GRUPOS:
+                    writer.writeObject(Data.getGroupList());
+                    writer.flush();
+                    break;
             }
         } catch (IOException ex) {
             Logger.getLogger(msgSkeleton.class.getName()).log(Level.SEVERE, null, ex);

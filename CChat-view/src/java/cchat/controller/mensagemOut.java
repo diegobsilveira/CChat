@@ -5,6 +5,7 @@
  */
 package cchat.controller;
 
+import cchat.common.model.domain.IDestinatario;
 import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Sessao;
@@ -24,9 +25,8 @@ public class mensagemOut {
         try {  
             IMensageiro mensageiro = new stubMensageiro(host,port);
             Mensagem msg = new Mensagem();
-            Grupo atual = new Grupo();
-            atual.setNome(request.getParameter("sala"));
-            msg.setMensagem(request.getParameter("campo"));
+            IDestinatario atual = (IDestinatario)request.getSession().getAttribute("sala");
+            msg.setMensagem(request.getParameter("msg"));
             msg.setOrigem((Sessao) request.getSession().getAttribute("user"));
             msg.setDestino(atual);
             mensageiro.send(msg);
