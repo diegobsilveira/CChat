@@ -10,5 +10,7 @@ package cchat.common.model.domain;
  * @author Aluno
  */
 public interface IDestinatario {
+
+    public CharSequence getNome();
     
 }

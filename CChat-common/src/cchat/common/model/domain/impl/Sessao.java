@@ -7,7 +7,6 @@ package cchat.common.model.domain.impl;
 
 import cchat.common.model.domain.IDestinatario;
 import java.io.Serializable;
-import java.net.Socket;
 import java.util.Date;
 import java.util.Objects;
 
@@ -17,18 +16,18 @@ import java.util.Objects;
  */
 public class Sessao implements IDestinatario, Serializable {
 
-    private String nomeUsuario;
+    private String nome;
     private Date lastAccess;
 
     public Sessao() {
     }
 
-    public String getNomeUsuario() {
-        return nomeUsuario;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeUsuario(String nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @Override
@@ -57,7 +56,7 @@ public class Sessao implements IDestinatario, Serializable {
             return false;
         }
         final Sessao other = (Sessao) obj;
-        if (!Objects.equals(this.nomeUsuario, other.nomeUsuario)) {
+        if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
         return true;

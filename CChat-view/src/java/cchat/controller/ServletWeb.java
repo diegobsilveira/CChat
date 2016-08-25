@@ -7,6 +7,7 @@ package cchat.controller;
  */
 
 
+import cchat.common.model.domain.impl.Mensagem;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -25,16 +26,19 @@ public class ServletWeb extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String acao = request.getParameter("acao");
         String type = request.getParameter("type");
-         
+        PrintWriter p ;
+        ArrayList<String> users;
+        ArrayList<Mensagem> msgList;
+        
         switch (acao) {
             case "Login":
                 jsp = Login.execute(request);
                 break;
             case "userList":
-                ArrayList<String> users = userList.execute(request);     
+                users = userList.execute(request);     
                 
                 response.setContentType("text/xml;charset=UTF-8");  
-                PrintWriter p = response.getWriter();
+                p = response.getWriter();
                 p.append("<g>");
                 for(String s : users){
                     p.append("<user>");
@@ -42,8 +46,24 @@ public class ServletWeb extends HttpServlet {
                     p.append("</user>"); 
                 }
                 p.append("</g>");
-                
-                //response.getWriter().write("Insira seu codigo malegno aqui"); 
+                response.getWriter().write(jsp);
+                break;
+            case "getMessage":
+                msgList = mensagemIn.execute(request);     
+                response.setContentType("text/xml;charset=UTF-8");  
+                p = response.getWriter();
+                p.append("<mensagens>");
+                for(Mensagem msg : msgList){
+                    p.append("<msg>");
+                    p.append("<org>").append(msg.getOrigem().getNome()).append("</org>");
+                    p.append("<txt>").append(msg.getMensagem()).append("</txt>");
+                    p.append("<dst>").append(msg.getDestino().getNome()).append("</dst>");
+                    p.append("</msg>"); 
+                }
+                p.append("</mensagens>");
+                break;
+            case "sendMessage":
+                mensagemOut.execute(request);
                 break;
         }
         

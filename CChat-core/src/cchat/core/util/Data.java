@@ -22,24 +22,29 @@ public class Data {
     private static ArrayList<Grupo> groups = new ArrayList<>();
     private static ArrayList<ArrayList<Mensagem>> msgs = new ArrayList<>();
 
-    private Data() {
-
+    public Data() {
+        Grupo geral = new Grupo();
+        geral.setNome("Geral");
+        groups.add(geral);
     }
 
     public static synchronized boolean addUsers(Sessao user) {
         boolean encontrado = false;
         Iterator itr = users.iterator();
+        Grupo geral = new Grupo();
+        geral.setNome("Geral");
+        geral.getDestinos().add(user);
         while (itr.hasNext()) {
             if (((Sessao) itr.next()).equals(user)) {
                 encontrado = true;
             }
         }
-        if (!encontrado) {
+        if (!encontrado && addToGroup(geral)) {
             users.add(user);
-            System.out.println(" USUARIO LOGADO COM SUCESSO - "+user.getNomeUsuario());
+            System.out.println(" USUARIO LOGADO COM SUCESSO - "+user.getNome());
             return true;            
         } else {
-            System.out.println(" USUARIO FALHOU AO LOGAR    - "+user.getNomeUsuario());
+            System.out.println(" USUARIO FALHOU AO LOGAR    - "+user.getNome());
             return false;
         }
     }
@@ -99,13 +104,18 @@ public class Data {
     public static synchronized boolean removeUsers(Sessao user) {
         Sessao usuario = null;
         Iterator itr = users.iterator();
+        Grupo geral = new Grupo();
+        geral.setNome("Geral");
+        geral.getDestinos().add(user);
+        
         while (itr.hasNext()) {
             if (((Sessao) itr.next()).equals(user)) {
                 usuario = (Sessao) itr;
             }
         }
-        if (usuario != null) {
+        if (usuario != null && removeFromGroups(geral)) {
             users.remove(usuario);
+            
             return true;
         } else {
             return false;
@@ -169,7 +179,7 @@ public class Data {
         }
         if (usuario != null) {
             usuario.setLastAccess(new Date());
-            System.out.println("Nome : " + usuario.getNomeUsuario() + " Data : " + usuario.getLastAccess());
+            System.out.println("Nome : " + usuario.getNome() + " Data : " + usuario.getLastAccess());
             return true;
         } else {
             return false;
@@ -191,7 +201,7 @@ public class Data {
         Iterator aux = users.iterator();
         ArrayList<String> result = new ArrayList<>();
         while(aux.hasNext()){
-            result.add(((Sessao)aux.next()).getNomeUsuario());
+            result.add(((Sessao)aux.next()).getNome());
         }
         return result;
     }

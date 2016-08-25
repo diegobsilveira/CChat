@@ -12,7 +12,7 @@ public class CChatView {
         stubManterUsuario credenciar = new stubManterUsuario(IPServidor, PortaServidor);
         Sessao user = new Sessao();
 
-        user.setNomeUsuario("cleberson");
+        user.setNome("cleberson");
 
         boolean logged = credenciar.Logar(user);
 
