@@ -3,17 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cchat.common.services;
+package cchat.core.DAO;
 
-import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Sessao;
-import java.util.ArrayList;
 
 /**
  *
  * @author Nome
  */
-public interface IMensageiro {
-    public void send(Mensagem msg);
-    public ArrayList<Mensagem> get(Sessao user);
+public interface ISessaoDAO extends IGenericNamedDAO<Sessao>{
+    
 }

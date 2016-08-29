@@ -18,9 +18,9 @@ public class Mensagem implements IMensagem, Serializable {
     private Sessao origem;
     private IDestinatario destino;
     private String mensagem;
+    private Long id;
 
     public Mensagem() {
-        origem = new Sessao();
     }
 
     public Sessao getOrigem() {
@@ -45,6 +45,14 @@ public class Mensagem implements IMensagem, Serializable {
 
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

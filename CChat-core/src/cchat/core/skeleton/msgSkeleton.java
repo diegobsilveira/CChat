@@ -16,7 +16,6 @@ import cchat.common.util.Request;
 import cchat.core.services.impl.ManterGrupo;
 import cchat.core.services.impl.ManterUsuario;
 import cchat.core.services.impl.Mensageiro;
-import cchat.core.util.Data;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -102,11 +101,11 @@ public class msgSkeleton implements Runnable {
                     manterUsuario.upToDate(user);
                     break;
                 case LISTAR_USUARIOS:
-                    writer.writeObject(Data.getUserList());
+                    writer.writeObject(manterUsuario.listarUsuarios());
                     writer.flush();
                     break;
                 case LISTAR_GRUPOS:
-                    writer.writeObject(Data.getGroupList());
+                    writer.writeObject(manterGrupo.listarGrupos());
                     writer.flush();
                     break;
             }

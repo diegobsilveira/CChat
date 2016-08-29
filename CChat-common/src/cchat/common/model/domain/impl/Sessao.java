@@ -18,6 +18,7 @@ public class Sessao implements IDestinatario, Serializable {
 
     private String nome;
     private Date lastAccess;
+    private Long id;
 
     public Sessao() {
     }
@@ -43,7 +44,7 @@ public class Sessao implements IDestinatario, Serializable {
     public void setLastAccess(Date lastAccess) {
         this.lastAccess = lastAccess;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -61,6 +62,13 @@ public class Sessao implements IDestinatario, Serializable {
         }
         return true;
     }
-    
-    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }

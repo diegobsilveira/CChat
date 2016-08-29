@@ -14,14 +14,13 @@ import java.util.Objects;
  *
  * @author Aluno
  */
-public class Grupo implements IDestinatario, Serializable {
+public class Grupo implements IDestinatario, Serializable, Cloneable {
 
     private ArrayList<Sessao> destinos;
     private String nome;
+    private Long id;
 
     public Grupo() {
-        destinos = new ArrayList<>();
-        nome = "";
     }
 
     public ArrayList<Sessao> getDestinos() {
@@ -31,7 +30,7 @@ public class Grupo implements IDestinatario, Serializable {
     public void setDestinos(ArrayList<Sessao> destinos) {
         this.destinos = destinos;
     }
-
+    @Override
     public String getNome() {
         return nome;
     }
@@ -64,6 +63,12 @@ public class Grupo implements IDestinatario, Serializable {
         return true;
     }
 
-    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }

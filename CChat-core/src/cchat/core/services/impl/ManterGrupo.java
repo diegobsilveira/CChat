@@ -6,8 +6,11 @@
 package cchat.core.services.impl;
 
 import cchat.common.model.domain.impl.Grupo;
+import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IManterGrupo;
-import cchat.core.util.Data;
+import cchat.core.DAO.IGrupoDAO;
+import cchat.core.DAO.impl.GrupoDAO;
+import cchat.core.util.exception.PersistenciaException;
 import java.util.ArrayList;
 
 /**
@@ -18,21 +21,65 @@ public class ManterGrupo implements IManterGrupo {
 
     @Override
     public synchronized boolean criarGrupo(Grupo group) {
-        return Data.addGroups(group);
+        try {
+            IGrupoDAO grupoDAO = new GrupoDAO();
+            return grupoDAO.inserir(group) != null;
+        } catch (PersistenciaException ex) {
+            return false;
+        }
     }
 
     @Override
     public synchronized boolean convidar(Grupo group) {
-        return Data.addToGroup(group);
+        try {
+            IGrupoDAO grupoDAO = new GrupoDAO();
+            Grupo grupo = grupoDAO.consultarPorNome(group.getNome());
+            for(Sessao entrada : group.getDestinos()){
+                boolean existe = false;
+                for(Sessao atual : grupo.getDestinos()){
+                    if(atual.equals(entrada)){
+                       existe = true; 
+                    }
+                }
+                if(!existe)grupo.getDestinos().add(entrada);
+            }
+            return grupoDAO.atualizar(grupo);
+        } catch (PersistenciaException ex) {
+            return false;
+        }
     }
 
     @Override
     public synchronized boolean sairGrupo(Grupo group) {
-        return Data.removeFromGroups(group);
+        try {
+            IGrupoDAO grupoDAO = new GrupoDAO();
+            Grupo grupo = grupoDAO.consultarPorNome(group.getNome());
+            for(Sessao entrada : group.getDestinos()){
+                boolean existe = false;
+                for(Sessao atual : grupo.getDestinos()){
+                    if(atual.equals(entrada)){
+                       existe = true; 
+                    }
+                }
+                if(existe)grupo.getDestinos().remove(entrada);
+            }
+            return grupoDAO.atualizar(grupo);
+        } catch (PersistenciaException ex) {
+            return false;
+        }
     }
 
     @Override
     public ArrayList<String> listarGrupos() {
-        return Data.getGroupList();
+        try {
+            IGrupoDAO grupoDAO = new GrupoDAO();
+            ArrayList<String> retorno = new ArrayList<>();
+            for(Grupo atual : grupoDAO.listarTodos()){
+                retorno.add(atual.getNome());
+            }
+            return retorno;
+        } catch (PersistenciaException ex) {
+            return null;
+        }
     }
 }

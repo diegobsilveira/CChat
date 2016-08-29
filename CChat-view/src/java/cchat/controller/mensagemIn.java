@@ -21,19 +21,15 @@ public class mensagemIn {
     public static ArrayList<Mensagem> execute(HttpServletRequest request) {
         String host = "localhost";
         int port = 2223;
-        ArrayList<Mensagem> msgList = new ArrayList<>();
         
         try {  
             IMensageiro mensageiro = new stubMensageiro(host,port);
-            Mensagem msg = mensageiro.get((Sessao) request.getSession().getAttribute("user"));
-            while(msg != null){
-                msgList.add(msg);
-                msg = mensageiro.get((Sessao) request.getSession().getAttribute("user"));
-            }
-            return msgList;          
+            ArrayList<Mensagem> msg = mensageiro.get((Sessao) request.getSession().getAttribute("user"));
+            
+            return msg;
             
         } catch (Exception e) {
+            return null;
         }        
-        return msgList;
     }
 }

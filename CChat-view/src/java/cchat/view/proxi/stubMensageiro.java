@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -41,9 +42,9 @@ public class stubMensageiro implements IMensageiro{
             
         }
     }
-
+    
     @Override
-    public Mensagem get(Sessao user) {
+    public ArrayList<Mensagem> get(Sessao user) {
         try {
             socket = new Socket(host, port);
             ObjectInputStream in = AbstractInOut.getObjectReader(socket);
@@ -51,10 +52,9 @@ public class stubMensageiro implements IMensageiro{
             out.writeObject(Request.RECEBER_MENSAGEM);
             out.writeObject(user);
             out.flush();
-            return (Mensagem) in.readObject();
+            return (ArrayList<Mensagem>) in.readObject();
         } catch (IOException | ClassNotFoundException ex) {
             return null;
         }
     }
-
 }

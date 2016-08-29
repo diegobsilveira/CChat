@@ -7,8 +7,13 @@ package cchat.core.services.impl;
 
 import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IManterUsuario;
-import cchat.core.util.Data;
+import cchat.core.DAO.ISessaoDAO;
+import cchat.core.DAO.impl.SessaoDAO;
+import cchat.core.util.exception.PersistenciaException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,17 +23,42 @@ public class ManterUsuario implements IManterUsuario {
 
     @Override
     public synchronized boolean Logar(Sessao user) {
-        return Data.addUsers(user);
+        try {
+            ISessaoDAO sessaoDAO = new SessaoDAO();
+            return sessaoDAO.inserir(user) != null;
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ManterUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     @Override
     public synchronized boolean upToDate(Sessao user) {
-        return Data.updateUser(user);
+        try {
+            ISessaoDAO sessaoDAO = new SessaoDAO();
+            Sessao novo = sessaoDAO.consultarPorNome(user.getNome());
+            novo.setLastAccess(new Date());
+            return sessaoDAO.atualizar(novo);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ManterUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     @Override
     public ArrayList<String> listarUsuarios() {
-        return Data.getUserList();
+        ISessaoDAO sessaoDAO = new SessaoDAO();
+        try {
+            ArrayList<String> lista = new ArrayList<>();
+            for(Sessao user : sessaoDAO.listarTodos()){
+                lista.add(user.getNome());
+            }
+            return lista;
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ManterUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
 }
+

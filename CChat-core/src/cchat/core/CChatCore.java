@@ -6,7 +6,6 @@
 package cchat.core;
 
 import cchat.core.skeleton.msgSkeleton;
-import cchat.core.util.Data;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -22,7 +21,6 @@ public class CChatCore {
     public static void main(String args[]) throws IOException {
 
         ServerSocket server = null;
-        new Data();
         try {
 
             Thread m = new Thread(new Runnable() {
@@ -30,7 +28,7 @@ public class CChatCore {
                 public void run() {
                     try {
                         while (true) {
-                            Data.refreshUserList();
+                            //Data.refreshUserList();
                             Thread.sleep(30000);
                         }
                     } catch (InterruptedException ex) {

@@ -8,7 +8,10 @@ package cchat.core.services.impl;
 import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IMensageiro;
-import cchat.core.util.Data;
+import cchat.core.DAO.IMensagemDAO;
+import cchat.core.DAO.impl.MensagemDAO;
+import cchat.core.util.exception.PersistenciaException;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,12 +21,17 @@ public class Mensageiro implements IMensageiro{
 
     @Override
     public synchronized void send(Mensagem msg) {
-        Data.addMsgs(msg);
+        try{
+            IMensagemDAO mensagemDAO = new MensagemDAO();
+            mensagemDAO.inserir(msg);
+        }catch(PersistenciaException e){
+        }
     }
 
     @Override
-    public synchronized Mensagem get(Sessao user) {
-        return Data.removeMsg(user);
+    public synchronized ArrayList<Mensagem> get(Sessao user) {
+        IMensagemDAO mensagemDAO = new MensagemDAO();
+        return mensagemDAO.mensagensPorDestinatario(user);
     }
     
 }

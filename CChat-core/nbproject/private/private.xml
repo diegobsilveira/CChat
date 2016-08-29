@@ -7,6 +7,11 @@
             <file>file:/I:/CHAT/CChat-core/src/cchat/core/util/Data.java</file>
             <file>file:/I:/CHAT/CChat-core/src/cchat/core/skeleton/msgSkeleton.java</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/C:/Users/Nome/Desktop/CHAT/CChat-core/src/cchat/core/CChatCore.java</file>
+            <file>file:/C:/Users/Nome/Desktop/CHAT/CChat-core/src/cchat/core/DAO/impl/MensagemDAO.java</file>
+            <file>file:/C:/Users/Nome/Desktop/CHAT/CChat-core/src/cchat/core/util/Data.java</file>
+            <file>file:/C:/Users/Nome/Desktop/CHAT/CChat-core/src/cchat/core/DAO/IMensagemDAO.java</file>
+        </group>
     </open-files>
 </project-private>
