@@ -11,6 +11,6 @@ package cchat.common.model.domain;
  */
 public interface IDestinatario {
 
-    public CharSequence getNome();
+    public String getNome();
     
 }

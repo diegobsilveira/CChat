@@ -5,6 +5,7 @@
  */
 package cchat.core.services.impl;
 
+import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IMensageiro;
@@ -23,7 +24,27 @@ public class Mensageiro implements IMensageiro{
     public synchronized void send(Mensagem msg) {
         try{
             IMensagemDAO mensagemDAO = new MensagemDAO();
-            mensagemDAO.inserir(msg);
+            if(msg.getDestino() instanceof Grupo){
+                for(Sessao atual : ((Grupo)msg.getDestino()).getDestinos()){
+                    
+                    Grupo novo = new Grupo();
+                    Mensagem clone = new Mensagem();
+                    ArrayList<Sessao> destino = new ArrayList<>();
+                    
+                    destino.add(atual);
+                    
+                    novo.setNome(msg.getDestino().getNome());
+                    novo.setDestinos(destino);
+                    
+                    clone.setOrigem(msg.getOrigem());
+                    clone.setMensagem(msg.getMensagem());
+                    clone.setDestino(novo);
+                    
+                    mensagemDAO.inserir(clone);
+                }
+            }else{
+                mensagemDAO.inserir(msg);
+            }
         }catch(PersistenciaException e){
         }
     }
