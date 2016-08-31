@@ -5,9 +5,14 @@
  */
 package cchat.core.services.impl;
 
+import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IManterUsuario;
+import cchat.core.DAO.IGrupoDAO;
+import cchat.core.DAO.IMensagemDAO;
 import cchat.core.DAO.ISessaoDAO;
+import cchat.core.DAO.impl.GrupoDAO;
+import cchat.core.DAO.impl.MensagemDAO;
 import cchat.core.DAO.impl.SessaoDAO;
 import cchat.core.util.exception.PersistenciaException;
 import java.util.ArrayList;
@@ -25,6 +30,10 @@ public class ManterUsuario implements IManterUsuario {
     public synchronized boolean Logar(Sessao user) {
         try {
             ISessaoDAO sessaoDAO = new SessaoDAO();
+            IGrupoDAO grupoDAO = new GrupoDAO();
+            Grupo geral = grupoDAO.consultarPorNome("GERAL");
+            geral.getDestinos().add(user);
+            grupoDAO.atualizar(geral);
             return sessaoDAO.inserir(user) != null;
         } catch (PersistenciaException ex) {
             Logger.getLogger(ManterUsuario.class.getName()).log(Level.SEVERE, null, ex);

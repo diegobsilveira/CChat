@@ -21,6 +21,7 @@ public class Grupo implements IDestinatario, Serializable, Cloneable {
     private Long id;
 
     public Grupo() {
+        this.destinos = new ArrayList<>();
     }
 
     public ArrayList<Sessao> getDestinos() {

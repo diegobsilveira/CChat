@@ -6,7 +6,6 @@
 package cchat.core.DAO.impl;
 
 import cchat.common.model.domain.impl.Grupo;
-import cchat.common.model.domain.impl.Sessao;
 import cchat.core.DAO.IGrupoDAO;
 import cchat.core.util.connection.Data;
 import cchat.core.util.exception.PersistenciaException;

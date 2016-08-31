@@ -13,6 +13,8 @@ import cchat.core.DAO.IMensagemDAO;
 import cchat.core.DAO.impl.MensagemDAO;
 import cchat.core.util.exception.PersistenciaException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -45,7 +47,8 @@ public class Mensageiro implements IMensageiro{
             }else{
                 mensagemDAO.inserir(msg);
             }
-        }catch(PersistenciaException e){
+        }catch(PersistenciaException ex){
+            Logger.getLogger(Mensageiro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

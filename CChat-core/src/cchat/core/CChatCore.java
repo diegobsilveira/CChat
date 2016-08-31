@@ -5,6 +5,7 @@
  */
 package cchat.core;
 
+import cchat.core.services.impl.Mensageiro;
 import cchat.core.skeleton.msgSkeleton;
 import java.io.IOException;
 import java.net.ServerSocket;
