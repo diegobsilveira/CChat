@@ -10,6 +10,7 @@ import cchat.core.DAO.ISessaoDAO;
 import cchat.core.util.connection.Data;
 import cchat.core.util.exception.PersistenciaException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -52,7 +53,7 @@ public class SessaoDAO implements ISessaoDAO {
         Data dados = Data.getInstance();
         Sessao user = consultarPorNome(obj.getNome());
         if (user != null) {
-            dados.getGroups().remove(obj);
+            dados.getUsers().remove(obj);
         }
         return user;
     }
@@ -90,5 +91,14 @@ public class SessaoDAO implements ISessaoDAO {
             }
         }
         return max;
+    }
+    
+    public void refreshList() throws PersistenciaException {
+        Data dados = Data.getInstance();
+        for(Sessao atual : listarTodos()){
+            if(atual.getLastAccess().getTime() < (new Date()).getTime()-30000){
+                this.excluir(atual);
+            }
+        }
     }
 }

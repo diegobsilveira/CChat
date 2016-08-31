@@ -34,14 +34,16 @@ public class ManterGrupo implements IManterGrupo {
         try {
             IGrupoDAO grupoDAO = new GrupoDAO();
             Grupo grupo = grupoDAO.consultarPorNome(group.getNome());
-            for(Sessao entrada : group.getDestinos()){
+            for (Sessao entrada : group.getDestinos()) {
                 boolean existe = false;
-                for(Sessao atual : grupo.getDestinos()){
-                    if(atual.equals(entrada)){
-                       existe = true; 
+                for (Sessao atual : grupo.getDestinos()) {
+                    if (atual.equals(entrada)) {
+                        existe = true;
                     }
                 }
-                if(!existe)grupo.getDestinos().add(entrada);
+                if (!existe) {
+                    grupo.getDestinos().add(entrada);
+                }
             }
             return grupoDAO.atualizar(grupo);
         } catch (PersistenciaException ex) {
@@ -54,14 +56,16 @@ public class ManterGrupo implements IManterGrupo {
         try {
             IGrupoDAO grupoDAO = new GrupoDAO();
             Grupo grupo = grupoDAO.consultarPorNome(group.getNome());
-            for(Sessao entrada : group.getDestinos()){
+            for (Sessao entrada : group.getDestinos()) {
                 boolean existe = false;
-                for(Sessao atual : grupo.getDestinos()){
-                    if(atual.equals(entrada)){
-                       existe = true; 
+                for (Sessao atual : grupo.getDestinos()) {
+                    if (atual.equals(entrada)) {
+                        existe = true;
                     }
                 }
-                if(existe)grupo.getDestinos().remove(entrada);
+                if (existe) {
+                    grupo.getDestinos().remove(entrada);
+                }
             }
             return grupoDAO.atualizar(grupo);
         } catch (PersistenciaException ex) {
@@ -74,8 +78,10 @@ public class ManterGrupo implements IManterGrupo {
         try {
             IGrupoDAO grupoDAO = new GrupoDAO();
             ArrayList<String> retorno = new ArrayList<>();
-            for(Grupo atual : grupoDAO.listarTodos()){
-                retorno.add(atual.getNome());
+            if (grupoDAO.listarTodos().size() >0) {
+                for (Grupo atual : grupoDAO.listarTodos()) {
+                    retorno.add(atual.getNome());
+                }
             }
             return retorno;
         } catch (PersistenciaException ex) {

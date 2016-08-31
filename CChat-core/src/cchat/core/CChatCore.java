@@ -5,8 +5,11 @@
  */
 package cchat.core;
 
+import cchat.core.DAO.ISessaoDAO;
+import cchat.core.DAO.impl.SessaoDAO;
 import cchat.core.services.impl.Mensageiro;
 import cchat.core.skeleton.msgSkeleton;
+import cchat.core.util.exception.PersistenciaException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -29,10 +32,11 @@ public class CChatCore {
                 public void run() {
                     try {
                         while (true) {
-                            //Data.refreshUserList();
+                            SessaoDAO sessaoDAO = new SessaoDAO();
+                            sessaoDAO.refreshList();
                             Thread.sleep(30000);
                         }
-                    } catch (InterruptedException ex) {
+                    } catch (InterruptedException | PersistenciaException ex) {
                         Logger.getLogger(CChatCore.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }

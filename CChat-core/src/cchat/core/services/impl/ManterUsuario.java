@@ -12,7 +12,6 @@ import cchat.core.DAO.IGrupoDAO;
 import cchat.core.DAO.IMensagemDAO;
 import cchat.core.DAO.ISessaoDAO;
 import cchat.core.DAO.impl.GrupoDAO;
-import cchat.core.DAO.impl.MensagemDAO;
 import cchat.core.DAO.impl.SessaoDAO;
 import cchat.core.util.exception.PersistenciaException;
 import java.util.ArrayList;
@@ -46,8 +45,12 @@ public class ManterUsuario implements IManterUsuario {
         try {
             ISessaoDAO sessaoDAO = new SessaoDAO();
             Sessao novo = sessaoDAO.consultarPorNome(user.getNome());
-            novo.setLastAccess(new Date());
-            return sessaoDAO.atualizar(novo);
+            if(novo != null){
+                novo.setLastAccess(new Date());
+                return sessaoDAO.atualizar(novo);
+            }else{
+                return false;
+            }
         } catch (PersistenciaException ex) {
             Logger.getLogger(ManterUsuario.class.getName()).log(Level.SEVERE, null, ex);
             return false;

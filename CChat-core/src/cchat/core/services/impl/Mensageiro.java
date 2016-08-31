@@ -9,7 +9,9 @@ import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IMensageiro;
+import cchat.core.DAO.IGrupoDAO;
 import cchat.core.DAO.IMensagemDAO;
+import cchat.core.DAO.impl.GrupoDAO;
 import cchat.core.DAO.impl.MensagemDAO;
 import cchat.core.util.exception.PersistenciaException;
 import java.util.ArrayList;
@@ -20,34 +22,39 @@ import java.util.logging.Logger;
  *
  * @author Nome
  */
-public class Mensageiro implements IMensageiro{
+public class Mensageiro implements IMensageiro {
 
     @Override
     public synchronized void send(Mensagem msg) {
-        try{
+        try {
             IMensagemDAO mensagemDAO = new MensagemDAO();
-            if(msg.getDestino() instanceof Grupo){
-                for(Sessao atual : ((Grupo)msg.getDestino()).getDestinos()){
-                    
+            IGrupoDAO grupoDAO = new GrupoDAO();
+            if (msg.getDestino() instanceof Grupo) {
+                Grupo groupDest = (Grupo) msg.getDestino();
+                groupDest.setDestinos(
+                        grupoDAO.consultarPorNome(groupDest.getNome()).getDestinos()
+                );
+                for (Sessao atual : groupDest.getDestinos()) {
+
                     Grupo novo = new Grupo();
                     Mensagem clone = new Mensagem();
                     ArrayList<Sessao> destino = new ArrayList<>();
-                    
+
                     destino.add(atual);
-                    
+
                     novo.setNome(msg.getDestino().getNome());
                     novo.setDestinos(destino);
-                    
+
                     clone.setOrigem(msg.getOrigem());
                     clone.setMensagem(msg.getMensagem());
                     clone.setDestino(novo);
-                    
+
                     mensagemDAO.inserir(clone);
                 }
-            }else{
+            } else {
                 mensagemDAO.inserir(msg);
             }
-        }catch(PersistenciaException ex){
+        } catch (PersistenciaException ex) {
             Logger.getLogger(Mensageiro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -57,5 +64,5 @@ public class Mensageiro implements IMensageiro{
         IMensagemDAO mensagemDAO = new MensagemDAO();
         return mensagemDAO.mensagensPorDestinatario(user);
     }
-    
+
 }
