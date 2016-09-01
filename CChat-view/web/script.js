@@ -14,9 +14,9 @@ function abobora(){
 function envia(){
     var msg = document.getElementById("campo").value;
     document.getElementById("campo").value="";
-    document.getElementById("msgs").innerHTML+="<li class='msg'><h4 id='remetente'>"+document.getElementById("nickname").innerHTML+"</h4><span id='mensagem'>"+msg+"</span></li>";
-    var objDiv = document.getElementById("wrapper");
-    objDiv.scrollTop = objDiv.scrollHeight;
+    //document.getElementById("msgs").innerHTML+="<li class='msg'><h4 id='remetente'>"+document.getElementById("nickname").innerHTML+"</h4><span id='mensagem'>"+msg+"</span></li>";
+    //var objDiv = document.getElementById("wrapper");
+    //objDiv.scrollTop = objDiv.scrollHeight;
     var http = new XMLHttpRequest();
     http.open("GET", "?acao=sendMessage&type=async&msg="+encodeURI(msg), true);
     http.send();
@@ -114,3 +114,35 @@ var update = setInterval(function(){
     http.send();
     
 },5000);
+
+
+var refreshMSG = setInterval(function(){
+    
+    var http = new XMLHttpRequest();    
+    var msg = document.getElementById("msgs");
+    
+    http.onreadystatechange = function() {
+        var o,t;
+        var msgs = "";
+        var xmlDoc,parser;
+        
+        if (http.readyState == 4 && http.status == 200) {
+            
+            parser = new DOMParser();
+            xmlDoc = parser.parseFromString(http.responseText, "text/xml");            
+            o = xmlDoc.getElementsByTagName("org");
+            t = xmlDoc.getElementsByTagName("txt");
+            
+            for (i = 0; i < o.length; i++) {
+               msgs += ("<li class='msg'><h4 id='remetente'>"+o[i].childNodes[0].nodeValue+"</h4><span id='mensagem'>"+t[i].childNodes[0].nodeValue+"</span></li>");
+            }
+            var objDiv = document.getElementById("wrapper");
+            objDiv.scrollTop = objDiv.scrollHeight;
+        }
+        msg.innerHTML = msgs;
+    };
+    
+    http.open("GET", "?acao=getMessage&type=async", true);
+    http.send();
+    
+},1000);
