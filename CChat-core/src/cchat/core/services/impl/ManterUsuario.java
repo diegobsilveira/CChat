@@ -29,11 +29,15 @@ public class ManterUsuario implements IManterUsuario {
     public synchronized boolean Logar(Sessao user) {
         try {
             ISessaoDAO sessaoDAO = new SessaoDAO();
-            IGrupoDAO grupoDAO = new GrupoDAO();
-            Grupo geral = grupoDAO.consultarPorNome("GERAL");
-            geral.getDestinos().add(user);
-            grupoDAO.atualizar(geral);
-            return sessaoDAO.inserir(user) != null;
+            if(sessaoDAO.inserir(user) != null){
+                IGrupoDAO grupoDAO = new GrupoDAO();
+                Grupo geral = grupoDAO.consultarPorNome("GERAL");
+                geral.getDestinos().add(user);
+                grupoDAO.atualizar(geral);
+                return true;
+            }else{
+                return false;
+            }
         } catch (PersistenciaException ex) {
             Logger.getLogger(ManterUsuario.class.getName()).log(Level.SEVERE, null, ex);
             return false;
