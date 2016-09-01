@@ -163,6 +163,7 @@ ul::-webkit-scrollbar-thumb {
     margin: 5px 0px 0px 10px;
     display: inline-block;
     font-family: pl;
+    word-break : break-all;
   }
 
   .box{

@@ -37,6 +37,7 @@ public class MensagemDAO implements IMensagemDAO {
                     atual.setDestino(obj.getDestino());
                     atual.setMensagem(obj.getMensagem());
                     atual.setOrigem(obj.getOrigem());
+                    atual.setEnvio(obj.getEnvio());
                     return true;
                 }
             }

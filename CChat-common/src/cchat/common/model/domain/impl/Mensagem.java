@@ -8,6 +8,7 @@ package cchat.common.model.domain.impl;
 import cchat.common.model.domain.IDestinatario;
 import cchat.common.model.domain.IMensagem;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -19,6 +20,7 @@ public class Mensagem implements IMensagem, Serializable {
     private IDestinatario destino;
     private String mensagem;
     private Long id;
+    private Date envio;
 
     public Mensagem() {
     }
@@ -53,6 +55,14 @@ public class Mensagem implements IMensagem, Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getEnvio() {
+        return envio;
+    }
+
+    public void setEnvio(Date envio) {
+        this.envio = envio;
     }
 
 }

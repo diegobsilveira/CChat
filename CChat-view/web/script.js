@@ -1,3 +1,6 @@
+var sala = "GERAL";
+var ult = 0;
+
 // um dia talvez quem sabe tenha a chance de repentinamente pensar na possibilidade de quase se imaginar em escrever código aqui
 function abobora(){
     var el = document.getElementById('campo');
@@ -124,7 +127,7 @@ var refreshMSG = setInterval(function(){
     var msg = document.getElementById("msgs");
     
     http.onreadystatechange = function() {
-        var o,t;
+        var o,t, d;
         var msgs = "";
         var xmlDoc,parser;
         
@@ -134,14 +137,28 @@ var refreshMSG = setInterval(function(){
             xmlDoc = parser.parseFromString(http.responseText, "text/xml");            
             o = xmlDoc.getElementsByTagName("org");
             t = xmlDoc.getElementsByTagName("txt");
+            d = xmlDoc.getElementsByTagName("date");
+            atual = 0;
+            while(atual<d.length && parseInt(d[atual].childNodes[0].nodeValue) <= ult){
+                atual++;
+            }
             
-            for (i = 0; i < o.length; i++) {
+            for (i = atual; i < o.length; i++) {
                msgs += ("<li class='msg'><h4 id='remetente'>"+o[i].childNodes[0].nodeValue+"</h4><span id='mensagem'>"+t[i].childNodes[0].nodeValue+"</span></li>");
             }
+            if(d.length-1 >= 0){
+                ult = parseInt(d[d.length-1].childNodes[0].nodeValue);
+            }            
         }
-        msg.innerHTML = msgs;
         var objDiv = document.getElementById("wrapper");
-            objDiv.scrollTop = objDiv.scrollHeight;
+        if(msgs !== ""){
+            if(objDiv.scrollTop >= objDiv.scrollHeight -600){
+                msg.innerHTML += msgs;
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }else{
+                msg.innerHTML += msgs;
+            }
+        }
     };
     
     http.open("GET", "?acao=getMessage&type=async", true);

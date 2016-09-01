@@ -15,6 +15,7 @@ import cchat.core.DAO.impl.GrupoDAO;
 import cchat.core.DAO.impl.MensagemDAO;
 import cchat.core.util.exception.PersistenciaException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,7 +49,8 @@ public class Mensageiro implements IMensageiro {
                     clone.setOrigem(msg.getOrigem());
                     clone.setMensagem(msg.getMensagem());
                     clone.setDestino(novo);
-
+                    clone.setEnvio(new Date());
+                    
                     mensagemDAO.inserir(clone);
                 }
             } else {
