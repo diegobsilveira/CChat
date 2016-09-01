@@ -136,10 +136,10 @@ var refreshMSG = setInterval(function(){
             for (i = 0; i < o.length; i++) {
                msgs += ("<li class='msg'><h4 id='remetente'>"+o[i].childNodes[0].nodeValue+"</h4><span id='mensagem'>"+t[i].childNodes[0].nodeValue+"</span></li>");
             }
-            var objDiv = document.getElementById("wrapper");
-            objDiv.scrollTop = objDiv.scrollHeight;
         }
         msg.innerHTML = msgs;
+        var objDiv = document.getElementById("wrapper");
+            objDiv.scrollTop = objDiv.scrollHeight;
     };
     
     http.open("GET", "?acao=getMessage&type=async", true);
