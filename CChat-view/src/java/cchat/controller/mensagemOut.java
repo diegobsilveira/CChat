@@ -30,6 +30,7 @@ public class mensagemOut {
             msg.setOrigem((Sessao) request.getSession().getAttribute("user"));
             msg.setDestino(atual);
             mensageiro.send(msg);
+            System.out.println(msg.getMensagem());
         } catch (Exception e) {
         }        
     }

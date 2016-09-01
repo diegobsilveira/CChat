@@ -17,9 +17,11 @@ function envia(){
     //document.getElementById("msgs").innerHTML+="<li class='msg'><h4 id='remetente'>"+document.getElementById("nickname").innerHTML+"</h4><span id='mensagem'>"+msg+"</span></li>";
     //var objDiv = document.getElementById("wrapper");
     //objDiv.scrollTop = objDiv.scrollHeight;
-    var http = new XMLHttpRequest();
-    http.open("GET", "?acao=sendMessage&type=async&msg="+encodeURI(msg), true);
-    http.send();
+    if(msg !== ""){
+        var http = new XMLHttpRequest();
+        http.open("GET", "?acao=sendMessage&type=async&msg="+encodeURI(msg), true);
+        http.send();
+    }
 }
 
 var refreshUsers = setInterval(function(){

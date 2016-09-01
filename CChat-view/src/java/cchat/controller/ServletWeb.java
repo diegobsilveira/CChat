@@ -72,7 +72,7 @@ public class ServletWeb extends HttpServlet {
                 for(Mensagem msg : msgList){
                     p.append("<msg>");
                     p.append("<org>").append(msg.getOrigem().getNome()).append("</org>");
-                    p.append("<txt>").append(msg.getMensagem()).append("</txt>");
+                    p.append("<txt><![CDATA[").append(msg.getMensagem()).append("]]></txt>");
                     p.append("<dst>").append(msg.getDestino().getNome()).append("</dst>");
                     p.append("</msg>"); 
                 }
