@@ -60,12 +60,12 @@
         <div class="container">
             <div class="msgdiv">
                 <div style="padding: 20px; border-bottom: 1px solid gainsboro;">
-                    <h3 style="color: #7000ec;"><%=((IDestinatario)request.getSession().getAttribute("sala")).getNome()%></h3>
+                    <h3 style="color: #7000ec;"><%=((IDestinatario) request.getSession().getAttribute("sala")).getNome()%></h3>
                     <a href="" style="background: url(&quot;https://cdn4.iconfinder.com/data/icons/geomicons/32/672366-x-128.png&quot;);height: 12px;width: 12px;position: absolute;top: 24px;right: 30px;background-size: cover;"></a>
                 </div>
 
                 <div class="body" id="wrapper">
-                    <ul id="msgs" >                           
+                    <ul id="msgs">                           
 
                     </ul>
                 </div>
@@ -80,6 +80,7 @@
             <div class="nav">
                 <div class="salas" style="border-bottom: 1px solid gainsboro;">
                     <h2>GRUPOS</h2>
+                    <button type="button" class="addbutton" onclick="abreModalGrupo()"></button>
                     <ul id="groups" class="body" style="height:252.25px;margin:0px;">
                         <%/*
                            ArrayList<String> listaG = (ArrayList) request.getAttribute("grpList");
@@ -106,5 +107,51 @@
                 </div>
             </div>
         </div>
-        
+        <div id="modal" class="modal">
+            <modal>
+                <div style="
+                     width: 540px;
+                     height: 320px;
+                     background: rgb(255, 255, 255);
+                     margin: 0 auto;
+                     margin-top: 200px;
+                     margin-bottom: 100px;
+                     -moz-box-shadow: 0px 3px 6px 3px rgba(0,0,0,0.19);
+                     box-shadow: 0px 3px 6px 3px rgba(0,0,0,0.19);
+                     position: relative;
+                     border-radius: 5px;
+                     ">
+
+                    <button type="button" style="background: url(&quot;https://cdn4.iconfinder.com/data/icons/geomicons/32/672366-x-128.png&quot;);height: 24px;width: 24px;position: absolute;top: 45px;right: 30px;background-size: cover;" onclick="fechaModalGrupo()"></button>
+
+                    <span style="
+                          font-size: 48px;
+                          font-family: PB;
+                          color: #7000ec;
+                          font-weight: bold;
+                          position: absolute;
+                          top: 30px;
+                          left: 30px;
+                          ">CRIAR GRUPO</span>
+
+
+                    <form id="form">
+                        <div style="
+                             margin: 0 auto;
+                             width: 500px;
+                             padding-top: 110px;
+                             "><span style="
+                                font-size: 14px;
+                                font-family: PB;
+                                color: #7000ec;
+                                display: block;
+                                margin-left: 10px;
+                                ">NOME DO GRUPO</span><input type="text" name="nome" placeholder="O NOME É NECESSÁRIO" class="inputo">
+                            <button type="button" class="enter" onclick="criarGrupo()">PRONTO</button>
+                        </div>
+                    </form>
+                </div>
+            </modal>
+        </div>
+
     </body></html>

@@ -54,7 +54,7 @@ button {
 }
 
 ::-webkit-input-placeholder {
-   color: red;
+    color: red;
 }
 
 li {
@@ -78,33 +78,33 @@ li {
 div::-webkit-scrollbar {
     width: 10px;
 }
- 
+
 div::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     border-radius:1000px;
-    
+
 }
- 
+
 div::-webkit-scrollbar-thumb {
-  background-color: #6200cf;
-  outline: 1000000px solid slategrey;
-  border-radius:1000px;
+    background-color: #6200cf;
+    outline: 1000000px solid slategrey;
+    border-radius:1000px;
 }
 
 ul::-webkit-scrollbar {
     width: 10px;
 }
- 
+
 ul::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     border-radius:1000px;
-    
+
 }
- 
+
 ul::-webkit-scrollbar-thumb {
-  background-color: #6200cf;
-  outline: 1000000px solid slategrey;
-  border-radius:1000px;
+    background-color: #6200cf;
+    outline: 1000000px solid slategrey;
+    border-radius:1000px;
 }
 
 
@@ -140,7 +140,7 @@ ul::-webkit-scrollbar-thumb {
 }
 
 .msgdiv{
-  position: absolute;
+    position: absolute;
     height: 680px;
     right: 0px;
     width: 780px;
@@ -152,10 +152,10 @@ ul::-webkit-scrollbar-thumb {
 }
 
 .body{
-  overflow: auto;
-  overflow-x: hidden;
-  max-height: 528px;
-  margin: 10px;
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 528px;
+    margin: 10px;
 }
 
 .msg span{
@@ -164,9 +164,9 @@ ul::-webkit-scrollbar-thumb {
     display: inline-block;
     font-family: pl;
     word-break : break-all;
-  }
+}
 
-  .box{
+.box{
     outline: 0;
     border: 0px;
     padding: 10px;
@@ -182,33 +182,33 @@ ul::-webkit-scrollbar-thumb {
     width: 780px;
     border-top: 1px solid gainsboro;
     border-radius: 2px;
-  }
+}
 
-  .nav{   
-position: absolute;
-    
-top: 0px;
-    
-left: 0px;
-    
-width: 300px;
-    
-background: #ffffff;
-    
-box-shadow: 0px 3px 6px 3px rgba(0,0,0,0.19); 
-    
-border-radius: 1;
-    
-border-radius: 2px;
-  }
+.nav{   
+    position: absolute;
 
-  .salas{
+    top: 0px;
+
+    left: 0px;
+
+    width: 300px;
+
+    background: #ffffff;
+
+    box-shadow: 0px 3px 6px 3px rgba(0,0,0,0.19); 
+
+    border-radius: 1;
+
+    border-radius: 2px;
+}
+
+.salas{
     padding: 15px;
-  }
+}
 
-  .salas ul{
+.salas ul{
     padding-left: 10px;
-  }
+}
 
 .msg {
     width: 700px;
@@ -232,7 +232,7 @@ border-radius: 2px;
 }
 
 .salas a{
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .box:focus {
@@ -240,7 +240,7 @@ border-radius: 2px;
 }
 
 .x{
-      background: url("https://cdn4.iconfinder.com/data/icons/geomicons/32/672366-x-128.png");
+    background: url("https://cdn4.iconfinder.com/data/icons/geomicons/32/672366-x-128.png");
     height: 12px;
     width: 12px;
     position: absolute;
@@ -259,19 +259,19 @@ border-radius: 2px;
 }
 
 .enter{
-      top: 100px;
-      left: 100px;
-      width: 481px;
-      height: 60px;
-      font-family: PB;
-      border-radius: 5px;
-      border: 2px solid #7000ec;
-      outline: 0px;
-      margin: 10px;
-      padding: 15px;
-      font-size: 14px;
-      background: #7000ec;
-      color: white;
+    top: 100px;
+    left: 100px;
+    width: 481px;
+    height: 60px;
+    font-family: PB;
+    border-radius: 5px;
+    border: 2px solid #7000ec;
+    outline: 0px;
+    margin: 10px;
+    padding: 15px;
+    font-size: 14px;
+    background: #7000ec;
+    color: white;
 }
 
 .image {
@@ -282,3 +282,28 @@ border-radius: 2px;
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.addbutton {
+    height: 20px;
+    width: 20px;
+    background: url(http://image.prntscr.com/image/4aa9b71b5c724560b8862913800fb610.png);
+    color: white;
+    font-size: 19px;
+    background-size: contain;
+    position: absolute;
+    top: 28px;
+    right: 20px;
+    cursor: pointer;
+    outline: 0px;  
+}
+
+
+.modal{
+    position:fixed;
+    height:100%;
+    width:100%;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    display: none; 
+    z-index:1000;
+}

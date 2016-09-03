@@ -165,3 +165,16 @@ var refreshMSG = setInterval(function(){
     http.send();
     
 },1000);
+
+
+function abreModalGrupo(){
+    document.getElementById("modal").style.display = "block";    
+}
+
+function fechaModalGrupo(){
+    document.getElementById("modal").style.display = "none";    
+}
+
+function criarGrupo(){
+     alert("CODIFIQUE AQUI O SEU MONSTRO INSIROSO");
+}
