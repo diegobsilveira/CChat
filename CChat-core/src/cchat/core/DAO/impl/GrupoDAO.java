@@ -82,7 +82,7 @@ public class GrupoDAO implements IGrupoDAO {
         return null;
     }
 
-    private Long maxId() throws PersistenciaException {
+    private Long maxId() throws PersistenciaException {        
         Long max = new Long(0);
         for (Grupo atual : listarTodos()) {
             if (atual.getId() >= max) {

@@ -135,21 +135,21 @@
                           ">CRIAR GRUPO</span>
 
 
-                    <form id="form">
-                        <div style="
-                             margin: 0 auto;
-                             width: 500px;
-                             padding-top: 110px;
-                             "><span style="
-                                font-size: 14px;
-                                font-family: PB;
-                                color: #7000ec;
-                                display: block;
-                                margin-left: 10px;
-                                ">NOME DO GRUPO</span><input type="text" name="nome" placeholder="O NOME É NECESSÁRIO" class="inputo">
-                            <button type="button" class="enter" onclick="criarGrupo()">PRONTO</button>
-                        </div>
-                    </form>
+                    <div style="
+                         margin: 0 auto;
+                         width: 500px;
+                         padding-top: 110px;
+                         "><span style="
+                            font-size: 14px;
+                            font-family: PB;
+                            color: #7000ec;
+                            display: block;
+                            margin-left: 10px;
+                            ">NOME DO GRUPO</span>
+                        <input type="text" id="nomeGrupo" name="nome" placeholder="O NOME É NECESSÁRIO" class="inputo"/>
+                        <button type="button" class="enter" onclick="criarGrupo()">PRONTO</button>
+                    </div>
+
                 </div>
             </modal>
         </div>

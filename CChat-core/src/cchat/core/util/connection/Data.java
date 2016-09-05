@@ -24,6 +24,7 @@ public class Data {
     private Data (){
         Grupo geral = new Grupo();
         geral.setNome("GERAL");
+        geral.setId(1L);
         groups.add(geral);
     }
     

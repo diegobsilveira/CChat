@@ -29,7 +29,7 @@ public class ServletWeb extends HttpServlet {
         PrintWriter p ;
         ArrayList<String> nameList;
         ArrayList<Mensagem> msgList;
-        
+        System.out.println("AGAIN, DOWN IN THE STREETS OF "+acao);
         switch (acao) {
             case "Login":
                 jsp = Login.execute(request);
@@ -82,6 +82,10 @@ public class ServletWeb extends HttpServlet {
             case "sendMessage":
                 mensagemOut.execute(request);
                 break;
+            case "createGroup":
+                System.out.println("ME AND MY SHADOW");
+                createGroup.execute(request);
+                break;    
         }
         
         //Redirecionando pagina

@@ -11,10 +11,12 @@ function abobora(){
             document.getElementById("botao").click();
         }
     })
+    
     }
 }
 
 function envia(){
+    alert("JI JI");
     var msg = document.getElementById("campo").value;
     document.getElementById("campo").value="";
     //document.getElementById("msgs").innerHTML+="<li class='msg'><h4 id='remetente'>"+document.getElementById("nickname").innerHTML+"</h4><span id='mensagem'>"+msg+"</span></li>";
@@ -176,5 +178,18 @@ function fechaModalGrupo(){
 }
 
 function criarGrupo(){
-     alert("CODIFIQUE AQUI O SEU MONSTRO INSIROSO");
+     var nomeGrupo = "";
+     if(document.getElementById("nomeGrupo").value != null && document.getElementById("nomeGrupo").value != ""){         
+        nomeGrupo += document.getElementById("nomeGrupo").value;    
+        alert("CODIFIQUE AQUI O SEU MONSTRO -> "+nomeGrupo );
+
+        fechaModalGrupo();
+        
+        var http = new XMLHttpRequest();
+        http.open("GET", "?acao=createGroup&type=async&grupo=" + encodeURI(nomeGrupo), true);
+        http.send();     
+    }
+    else{
+        alert("FAZ UMA PRA DEUS VER, DIGITA O NOME DO GRUPO ççççç");        
+    }
 }
