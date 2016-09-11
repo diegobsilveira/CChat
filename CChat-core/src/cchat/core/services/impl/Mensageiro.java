@@ -62,9 +62,17 @@ public class Mensageiro implements IMensageiro {
     }
 
     @Override
-    public synchronized ArrayList<Mensagem> get(Sessao user) {
-        IMensagemDAO mensagemDAO = new MensagemDAO();
-        return mensagemDAO.mensagensPorDestinatario(user);
+    public synchronized ArrayList<Mensagem> get(Sessao user){
+        try {
+            IMensagemDAO mensagemDAO = new MensagemDAO();
+            ArrayList<Mensagem> result = mensagemDAO.mensagensPorDestinatario(user);
+            for(Mensagem msg : result){
+                    mensagemDAO.excluir(msg);
+            }
+            return result;
+        } catch (PersistenciaException ex) {
+            return null;
+        }
     }
 
 }

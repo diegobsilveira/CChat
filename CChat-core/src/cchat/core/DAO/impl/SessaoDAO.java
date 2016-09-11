@@ -25,7 +25,9 @@ public class SessaoDAO implements ISessaoDAO {
         if (consultarPorNome(obj.getNome()) != null) {
             throw new PersistenciaException("Já existe um usuario com o mesmo"
                     + " nome");
-        } else {
+        } else if (obj.getNome().trim().equals("")) {
+            throw new PersistenciaException("O nick é obrigatorio");
+        }else {
             obj.setId(this.maxId());
             dados.getUsers().add(obj);
             return obj.getId();

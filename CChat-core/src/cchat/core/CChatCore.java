@@ -5,9 +5,7 @@
  */
 package cchat.core;
 
-import cchat.core.DAO.ISessaoDAO;
 import cchat.core.DAO.impl.SessaoDAO;
-import cchat.core.services.impl.Mensageiro;
 import cchat.core.skeleton.msgSkeleton;
 import cchat.core.util.exception.PersistenciaException;
 import java.io.IOException;

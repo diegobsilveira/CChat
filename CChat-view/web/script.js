@@ -16,12 +16,8 @@ function abobora(){
 }
 
 function envia(){
-    alert("JI JI");
     var msg = document.getElementById("campo").value;
     document.getElementById("campo").value="";
-    //document.getElementById("msgs").innerHTML+="<li class='msg'><h4 id='remetente'>"+document.getElementById("nickname").innerHTML+"</h4><span id='mensagem'>"+msg+"</span></li>";
-    //var objDiv = document.getElementById("wrapper");
-    //objDiv.scrollTop = objDiv.scrollHeight;
     if(msg !== ""){
         var http = new XMLHttpRequest();
         http.open("GET", "?acao=sendMessage&type=async&msg="+encodeURI(msg), true);
@@ -170,26 +166,24 @@ var refreshMSG = setInterval(function(){
 
 
 function abreModalGrupo(){
-    document.getElementById("modal").style.display = "block";    
+    document.getElementById("modal").style.display = "block";
+    document.body.style.overflowY ="hidden";
 }
 
 function fechaModalGrupo(){
-    document.getElementById("modal").style.display = "none";    
+    document.getElementById("modal").style.display = "none";
+    document.body.style.overflowY ="auto";
 }
 
 function criarGrupo(){
      var nomeGrupo = "";
      if(document.getElementById("nomeGrupo").value != null && document.getElementById("nomeGrupo").value != ""){         
         nomeGrupo += document.getElementById("nomeGrupo").value;    
-        alert("CODIFIQUE AQUI O SEU MONSTRO -> "+nomeGrupo );
-
         fechaModalGrupo();
-        
         var http = new XMLHttpRequest();
         http.open("GET", "?acao=createGroup&type=async&grupo=" + encodeURI(nomeGrupo), true);
         http.send();     
     }
     else{
-        alert("FAZ UMA PRA DEUS VER, DIGITA O NOME DO GRUPO ççççç");        
     }
 }

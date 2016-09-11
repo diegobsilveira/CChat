@@ -56,8 +56,8 @@
                         color: #7000ec;
                         display: block;
                         margin-left: 10px;
-                        ">NICKNAME</span><input type="text" name="nick" placeholder="O NICKNAME É NECESSÁRIO" class="inputo">
-                    <button class="enter" onclick="document.getElementById(form).submit();">ENTRAR
+                        ">NICKNAME</span><input type="text" name="nick" placeholder="O NICKNAME É NECESSÁRIO" required class="inputo">
+                    <button class="enter" onclick="if(document.getElementsByName('nick')[0].value !== null && document.getElementsByName('nick')[0].value.trim() !== ''){document.getElementById('form').submit();}">ENTRAR
                     </button>
                 </div>
             </form>

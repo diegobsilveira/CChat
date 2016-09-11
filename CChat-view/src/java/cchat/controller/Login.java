@@ -17,8 +17,8 @@ public class Login {
         String host = "localhost";
         int port = 2223;
         
-        try {                        
-            String nick = request.getParameter("nick");   
+        try {
+            String nick = request.getParameter("nick");
             Sessao user = new Sessao();
             user.setNome(nick);
             Grupo geral = new Grupo();
@@ -36,8 +36,6 @@ public class Login {
             e.printStackTrace();
             jsp = "index.jsp";
         }
-        
-        
         
         return jsp;        
     }
