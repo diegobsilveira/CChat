@@ -143,7 +143,8 @@ var refreshMSG = setInterval(function(){
             }
             
             for (i = atual; i < o.length; i++) {
-               msgs += ("<li class='msg'><h4 id='remetente'><b style='color: deeppink;'>@ "+dest[i].childNodes[0].nodeValue+" : </b>"+o[i].childNodes[0].nodeValue+"</h4><span id='mensagem'>"+t[i].childNodes[0].nodeValue+"</span></li>");
+               dat = new Date(parseInt(d[d.length-1].childNodes[0].nodeValue));
+               msgs += ("<li class='msg'><h4 id='remetente'><b style='color: deeppink;'>@ "+dest[i].childNodes[0].nodeValue+" : </b>"+o[i].childNodes[0].nodeValue+"<span style='float:right;color:gray;'>"+(dat.getHours() < 10 ? "0"+dat.getHours(): dat.getHours())+":"+(dat.getMinutes()<10?"0"+dat.getMinutes():dat.getMinutes())+"</span></h4><span id='mensagem'>"+t[i].childNodes[0].nodeValue+"</span></li>");
             }
             if(d.length-1 >= 0){
                 ult = parseInt(d[d.length-1].childNodes[0].nodeValue);
