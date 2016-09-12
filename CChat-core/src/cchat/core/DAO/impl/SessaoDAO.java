@@ -21,8 +21,9 @@ public class SessaoDAO implements ISessaoDAO {
     @Override
     public Long inserir(Sessao obj) throws PersistenciaException {
         Data dados = Data.getInstance();
-
-        if (consultarPorNome(obj.getNome()) != null) {
+        if(obj == null){
+            throw new PersistenciaException("Nulo não pode ser inserido");
+        } else if (consultarPorNome(obj.getNome()) != null) {
             throw new PersistenciaException("Já existe um usuario com o mesmo"
                     + " nome");
         } else if (obj.getNome().trim().equals("")) {

@@ -85,11 +85,12 @@ public class MensagemDAO implements IMensagemDAO {
     public ArrayList<Mensagem> mensagensPorDestinatario(Sessao destino) {
         try {
             ArrayList<Mensagem> novo = new ArrayList<>();
-            for (Mensagem atual : listarTodos()) {
-                if(atual.getDestino().getNome().equals(destino.getNome())){
-                    novo.add(atual);
+            if(destino != null){
+                for (Mensagem atual : listarTodos()) {
+                    if(destino.getNome().equals(atual.getDestino().getNome())){
+                        novo.add(atual);
+                    }
                 }
-                novo.add(atual);
             }
             return novo;
         } catch (PersistenciaException ex) {
