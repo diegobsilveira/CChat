@@ -5,7 +5,6 @@
  */
 package cchat.core.DAO.impl;
 
-import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Sessao;
 import cchat.core.DAO.IMensagemDAO;
@@ -87,18 +86,12 @@ public class MensagemDAO implements IMensagemDAO {
         try {
             ArrayList<Mensagem> novo = new ArrayList<>();
             for (Mensagem atual : listarTodos()) {
-                if(atual.getDestino() instanceof Grupo){
-                    if(((Grupo)atual.getDestino()).getDestinos().get(0).getNome().equals(destino.getNome())){
-                        novo.add(atual);
-                    }
-                }else{
-                    if(atual.getDestino().getNome().equals(destino.getNome())){
-                        novo.add(atual);
-                    }
-                novo.add(atual);
+                if(atual.getDestino().getNome().equals(destino.getNome())){
+                    novo.add(atual);
                 }
+                novo.add(atual);
             }
-                return novo;
+            return novo;
         } catch (PersistenciaException ex) {
             return null;
         }
