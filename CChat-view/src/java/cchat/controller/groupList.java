@@ -6,7 +6,6 @@
 package cchat.controller;
 
 import cchat.common.services.IManterGrupo;
-import cchat.common.services.IManterUsuario;
 import cchat.view.proxi.stubManterGrupo;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;

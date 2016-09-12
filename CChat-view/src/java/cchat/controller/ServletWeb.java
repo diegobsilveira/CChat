@@ -7,6 +7,7 @@ package cchat.controller;
  */
 
 
+import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Mensagem;
 import java.io.IOException;
 import java.io.PrintWriter;

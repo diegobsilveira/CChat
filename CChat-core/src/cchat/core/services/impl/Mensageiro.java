@@ -36,10 +36,18 @@ public class Mensageiro implements IMensageiro {
                         grupoDAO.consultarPorNome(groupDest.getNome()).getDestinos()
                 );
                 for (Sessao atual : groupDest.getDestinos()) {
+                    Grupo novo = new Grupo();
+                    ArrayList<Sessao> lista = new ArrayList<>();
+                    
+                    lista.add(atual);
+                    
+                    novo.setNome(msg.getDestino().getNome());
+                    novo.setDestinos(lista);
+                    
                     Mensagem clone = new Mensagem();
                     clone.setOrigem(msg.getOrigem());
                     clone.setMensagem(msg.getMensagem());
-                    clone.setDestino(atual);
+                    clone.setDestino(novo);
                     clone.setEnvio(new Date());
                     mensagemDAO.inserir(clone);
                 }

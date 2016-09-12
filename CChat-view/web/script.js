@@ -136,13 +136,14 @@ var refreshMSG = setInterval(function(){
             o = xmlDoc.getElementsByTagName("org");
             t = xmlDoc.getElementsByTagName("txt");
             d = xmlDoc.getElementsByTagName("date");
+            dest = xmlDoc.getElementsByTagName("dst");
             atual = 0;
             while(atual<d.length && parseInt(d[atual].childNodes[0].nodeValue) <= ult){
                 atual++;
             }
             
             for (i = atual; i < o.length; i++) {
-               msgs += ("<li class='msg'><h4 id='remetente'>"+o[i].childNodes[0].nodeValue+"</h4><span id='mensagem'>"+t[i].childNodes[0].nodeValue+"</span></li>");
+               msgs += ("<li class='msg'><h4 id='remetente'><b style='color: deeppink;'>@ "+dest[i].childNodes[0].nodeValue+" : </b>"+o[i].childNodes[0].nodeValue+"</h4><span id='mensagem'>"+t[i].childNodes[0].nodeValue+"</span></li>");
             }
             if(d.length-1 >= 0){
                 ult = parseInt(d[d.length-1].childNodes[0].nodeValue);
