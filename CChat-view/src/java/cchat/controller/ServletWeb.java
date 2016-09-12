@@ -9,6 +9,7 @@ package cchat.controller;
 
 import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Mensagem;
+import cchat.common.model.domain.impl.Sessao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -43,6 +44,8 @@ public class ServletWeb extends HttpServlet {
                 response.setContentType("text/xml;charset=UTF-8");  
                 p = response.getWriter();
                 p.append("<g>");
+                Sessao kanye = (Sessao) request.getSession().getAttribute("user");
+                p.append("<me>").append(kanye.getNome()).append("</me>");
                 for(String s : nameList){
                     p.append("<user>");
                     p.append("<name>").append(s).append("</name>");

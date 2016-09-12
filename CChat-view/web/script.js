@@ -1,8 +1,13 @@
 var sala = "GERAL";
 var ult = 0;
 
+var usuarionome = "";
+
 // um dia talvez quem sabe tenha a chance de repentinamente pensar na possibilidade de quase se imaginar em escrever código aqui
 function abobora(){
+    
+    usuarionome=document.getElementById("nickname").innerHTML;
+    alert(usuarionome);
     var el = document.getElementById('campo');
     if(el){
       el.addEventListener('keyup', function(event) {
@@ -13,6 +18,8 @@ function abobora(){
     })
     
     }
+    
+    
 }
 
 function envia(){
@@ -35,49 +42,31 @@ var refreshUsers = setInterval(function(){
         var username = "";
         var xmlDoc,parser;
         
-        if (http.readyState == 4 && http.status == 200) {
-            
-            parser = new DOMParser();
-            xmlDoc = parser.parseFromString(http.responseText, "text/xml");            
-            u = xmlDoc.getElementsByTagName("name");            
-            
-            for (i = 0; i < u.length; i++) {
-               username += ("<li><a>"+u[i].childNodes[0].nodeValue+"</a></li>");
-            }
-        }
-        users.innerHTML = username;
-    };
-    
-    http.open("GET", "?acao=userList&type=async", true);
-    http.send();
-    
-},5000);
-
-var refreshUsers = setInterval(function(){
-    
-    var http = new XMLHttpRequest();    
-    var users = document.getElementById("users");
-    
-    http.onreadystatechange = function() {
-        var u;
-        var username = "";
-        var xmlDoc,parser;
         
         if (http.readyState == 4 && http.status == 200) {
             
             parser = new DOMParser();
             xmlDoc = parser.parseFromString(http.responseText, "text/xml");            
             u = xmlDoc.getElementsByTagName("name");            
+            var west = xmlDoc.getElementsByTagName("me")[0].childNodes[0].nodeValue;
+            
+            if(usuarionome!=west){        
+                alert(west+",essa janela já era, tem outra sessao aberta");
+            }
             
             for (i = 0; i < u.length; i++) {
-               username += ("<li><a>"+u[i].childNodes[0].nodeValue+"</a></li>");
+               username += ("<li><a>"+u[i].childNodes[0].nodeValue+"</a></li>");               
             }
+            
         }
-        users.innerHTML = username;
+        users.innerHTML = username;        
+        
+        
     };
     
     http.open("GET", "?acao=userList&type=async", true);
     http.send();
+    
     
 },5000);
 
