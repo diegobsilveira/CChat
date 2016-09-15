@@ -22,13 +22,34 @@ public class mensagemOut {
         String host = "localhost";
         int port = 2223;
         
-        try {  
+        try {
             IMensageiro mensageiro = new stubMensageiro(host,port);
             Mensagem msg = new Mensagem();
-            IDestinatario atual = (IDestinatario)request.getSession().getAttribute("sala");
-            msg.setMensagem(request.getParameter("msg"));
+            IDestinatario destino = null;
+            String rawMsg = request.getParameter("msg").trim();
+            switch(rawMsg.split("\"")[0]){
+                case "\\g " :
+                    destino = new Grupo();
+                    ((Grupo)destino).setNome(rawMsg.split("\"")[1]);
+                    rawMsg = rawMsg.substring(rawMsg.indexOf("\"")+1);
+                    rawMsg = rawMsg.substring(rawMsg.indexOf("\"")+1);
+                    break;
+                case "\\pm " :
+                    destino = new Sessao();
+                    ((Sessao)destino).setNome(rawMsg.split("\"")[1]);
+                    rawMsg = rawMsg.substring(rawMsg.indexOf("\"")+1);
+                    rawMsg = rawMsg.substring(rawMsg.indexOf("\"")+1);
+                    System.out.println(destino.getNome());
+                    break;
+                default:
+                    destino = new Grupo();
+                    ((Grupo)destino).setNome("GERAL");
+                    break;
+            }
+            
+            msg.setMensagem(rawMsg);
             msg.setOrigem((Sessao) request.getSession().getAttribute("user"));
-            msg.setDestino(atual);
+            msg.setDestino(destino);
             mensageiro.send(msg);
             System.out.println(msg.getMensagem());
         } catch (Exception e) {

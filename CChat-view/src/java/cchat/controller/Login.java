@@ -21,15 +21,12 @@ public class Login {
             String nick = request.getParameter("nick");
             Sessao user = new Sessao();
             user.setNome(nick);
-            Grupo geral = new Grupo();
-            geral.setNome("GERAL");
             IManterUsuario manter = new stubManterUsuario(host,port);
             
             if(manter.Logar(user)){        
                 jsp = "/room.jsp";
                 request.setAttribute("usrList", manter.listarUsuarios());
                 request.getSession().setAttribute("user", user);
-                request.getSession().setAttribute("sala", geral);
             }            
             
         } catch (Exception e) {

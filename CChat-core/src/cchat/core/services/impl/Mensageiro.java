@@ -52,7 +52,14 @@ public class Mensageiro implements IMensageiro {
                     mensagemDAO.inserir(clone);
                 }
             } else {
+                msg.setEnvio(new Date());
                 mensagemDAO.inserir(msg);
+                Mensagem clone = new Mensagem();
+                clone.setOrigem((Sessao) msg.getDestino());
+                clone.setMensagem(msg.getMensagem());
+                clone.setDestino(msg.getOrigem());
+                clone.setEnvio(msg.getEnvio());
+                mensagemDAO.inserir(clone);
             }
         } catch (PersistenciaException ex) {
             Logger.getLogger(Mensageiro.class.getName()).log(Level.SEVERE, null, ex);
