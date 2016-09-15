@@ -5,7 +5,7 @@
  */
 package cchat.common.services;
 
-import cchat.common.model.domain.impl.Grupo;
+import cchat.common.model.domain.impl.*;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public interface IManterGrupo {
     
-    public boolean convidar(Grupo group);
+    public boolean adicionar(Grupo group, Sessao user);
 
     public boolean criarGrupo(Grupo group);
     

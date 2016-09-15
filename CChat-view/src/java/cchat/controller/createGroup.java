@@ -6,6 +6,7 @@
 package cchat.controller;
 
 import cchat.common.model.domain.impl.Grupo;
+import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IManterGrupo;
 import cchat.common.services.IManterUsuario;
 import cchat.view.proxi.stubManterGrupo;
@@ -27,7 +28,11 @@ class createGroup {
             Grupo grupo = new Grupo();
             grupo.setNome(request.getParameter("grupo"));
             boolean z = manter.criarGrupo(grupo);
-            System.out.println(z);
+            System.out.println(z);            
+           
+            Sessao user = (Sessao) request.getSession().getAttribute("user");   
+            System.out.println("ADD "+user.getNome()+" TO "+grupo.getNome()+" -> "+manter.adicionar(grupo, user));
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

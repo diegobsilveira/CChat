@@ -30,7 +30,7 @@ public class ManterGrupo implements IManterGrupo {
     }
 
     @Override
-    public synchronized boolean convidar(Grupo group) {
+    public synchronized boolean adicionar(Grupo group, Sessao user) {
         try {
             IGrupoDAO grupoDAO = new GrupoDAO();
             Grupo grupo = grupoDAO.consultarPorNome(group.getNome());

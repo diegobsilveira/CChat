@@ -71,7 +71,8 @@ public class msgSkeleton implements Runnable {
                     break;
                 case CONVIDAR_PARA_GRUPO:
                     group = (Grupo) reader.readObject();
-                    if (manterGrupo.convidar(group)) {
+                    user = (Sessao) reader.readObject();
+                    if (manterGrupo.adicionar(group,user)) {
                         writer.writeBoolean(true);
                     } else {
                         writer.writeBoolean(false);

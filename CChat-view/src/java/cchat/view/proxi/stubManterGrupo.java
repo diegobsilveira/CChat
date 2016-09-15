@@ -6,6 +6,7 @@
 package cchat.view.proxi;
 
 import cchat.common.model.domain.impl.Grupo;
+import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IManterGrupo;
 import cchat.common.util.AbstractInOut;
 import cchat.common.util.Request;
@@ -49,8 +50,19 @@ public class stubManterGrupo implements IManterGrupo{
     }
 
     @Override
-    public boolean convidar(Grupo group) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean adicionar(Grupo group, Sessao user) {
+        try {
+            socket = new Socket(host, port);
+            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
+            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
+            out.writeObject(Request.CONVIDAR_PARA_GRUPO);
+            out.writeObject(group);
+            out.writeObject(user);
+            out.flush();
+            return in.readBoolean();
+        } catch (IOException ex) {
+            return false;
+        }
     }
 
     @Override

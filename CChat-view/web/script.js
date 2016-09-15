@@ -203,7 +203,7 @@ function addToGrupo(n){
         nomeUser = document.getElementById("modalinput").value;
         document.getElementById("modalinput").value= "";
         var http = new XMLHttpRequest();
-        //http.open("GET", "?acao=MUDARAQUIPRAAÇAODEFINITIVA&type=async&grupo=" + encodeURI(nomeGrupo) + "&user=" + encodeURI(nomeUser), true);
+        http.open("GET", "?acao=addToGroup&type=async&grupo=" + encodeURI(nomeGrupo) + "&user=" + encodeURI(nomeUser), true);
         http.send();     
     }
     else{

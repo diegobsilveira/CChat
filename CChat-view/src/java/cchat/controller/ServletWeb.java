@@ -82,6 +82,9 @@ public class ServletWeb extends HttpServlet {
                 }
                 p.append("</mensagens>");
                 break;
+            case "addToGroup":
+                adicionarAoGrupo.execute(request);
+                break;    
             case "sendMessage":
                 mensagemOut.execute(request);
                 break;
