@@ -74,9 +74,14 @@ public class ServletWeb extends HttpServlet {
                 p.append("<mensagens>");
                 for(Mensagem msg : msgList){
                     p.append("<msg>");
-                    p.append("<org>").append(msg.getOrigem().getNome()).append("</org>");
                     p.append("<txt><![CDATA[").append(msg.getMensagem()).append("]]></txt>");
-                    p.append("<dst>").append(msg.getDestino().getNome()).append("</dst>");
+                    if(msg.getDestino() instanceof Grupo) {
+                        p.append("<org>").append(msg.getOrigem().getNome()).append("</org>");
+                        p.append("<dst>").append(msg.getDestino().getNome()).append("</dst>");
+                    }else{
+                        p.append("<org>").append(msg.getDestino().getNome()).append("</org>");
+                        p.append("<dst>PRIVADO COM ").append(msg.getOrigem().getNome()).append("</dst>");
+                    }
                     p.append("<date>").append((new Long(msg.getEnvio().getTime())).toString()).append("</date>");
                     p.append("</msg>"); 
                 }
