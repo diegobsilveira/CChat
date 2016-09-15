@@ -55,32 +55,31 @@
           ">
 
         <div style="
-    margin: 0 auto;
-    width: 1100px;
-    margin-top: 80px;
-"><div class="you" style="
-">
-  
-  <div style="display: inline-block;padding: 20px;background-color: #fff;color: #F14D7B;width: 1060px;position: relative;box-shadow: 0px 3px 6px 3px rgba(0,0,0,0.19);font-size: 20px;border-bottom: 2px solid #F14D7B;"><img src="http://i.imgur.com/zHBwVHE.png?1" style="
-                 height: 45px;
-                 /* top: 30px; */
-                 /* border-radius: 10000px; */
-                 /* left: 200; */
-                 /* right: 31px; */
-                 position: absolute;
-                 right: 10px;
-                 top: 10px;
-                 ">ADEVAS CHAT 3.0<span style="color: black;display: -webkit-inline-box;font-family: PB;display: none;">ADEVAS CHAT 3.0</span>            
-     </div> 
-  
-  </div></div>
+             margin: 0 auto;
+             width: 1100px;
+             margin-top: 80px;
+             "><div class="you" >
+
+    <div style="display: inline-block;padding: 20px;background-color: #fff;color: #F14D7B;width: 1060px;position: relative;box-shadow: 0px 3px 6px 3px rgba(0,0,0,0.19);font-size: 20px;border-bottom: 2px solid #F14D7B;"><img src="http://i.imgur.com/zHBwVHE.png?1" style="
+        height: 45px;
+        /* top: 30px; */
+        /* border-radius: 10000px; */
+        /* left: 200; */
+        /* right: 31px; */
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        ">ADEVAS CHAT 3.0<span style="color: black;display: -webkit-inline-box;font-family: PB;display: none;">ADEVAS CHAT 3.0</span>            
+    </div> 
+
+            </div></div>
 
         <div class="container">
             <div class="msgdiv">
                 <div style="padding: 20px;border-bottom: 1px solid gainsboro;">
                     <h3 id="nickname" style="
-    color: #f04d7b;
-"><%=((IDestinatario) request.getSession().getAttribute("user")).getNome()%></h3>
+                        color: #f04d7b;
+                        "><%=((IDestinatario) request.getSession().getAttribute("user")).getNome()%></h3>
                     <a href="" style="background: url(&quot;https://cdn4.iconfinder.com/data/icons/geomicons/32/672366-x-128.png&quot;);height: 12px;width: 12px;position: absolute;top: 24px;right: 30px;background-size: cover;"></a>
                 </div>
 
@@ -98,7 +97,7 @@
             <div class="nav">
                 <div class="salas" style="border-bottom: 1px solid gainsboro;">
                     <h2>GRUPOS</h2>
-                    <button type="button" class="addbutton" onclick="abreModalGrupo()"></button>
+                    <button type="button" class="addbutton" onclick="abreModalGrupo(0,'false')"></button>
                     <ul id="groups" class="body" style="height:252.25px;margin:0px;"></ul>
                 </div>
 
@@ -124,15 +123,7 @@
 
                     <button type="button" style="background: url(&quot;https://cdn4.iconfinder.com/data/icons/geomicons/32/672366-x-128.png&quot;);height: 24px;width: 24px;position: absolute;top: 45px;right: 30px;background-size: cover;" onclick="fechaModalGrupo()"></button>
 
-                    <span style="
-                          font-size: 48px;
-                          font-family: PB;
-                          color: #7000ec;
-                          font-weight: bold;
-                          position: absolute;
-                          top: 30px;
-                          left: 30px;
-                          ">CRIAR GRUPO</span>
+                    <span id="modaltitle"></span>
 
 
                     <div style="
@@ -145,9 +136,9 @@
                             color: #7000ec;
                             display: block;
                             margin-left: 10px;
-                            ">NOME DO GRUPO</span>
-                        <input type="text" id="nomeGrupo" name="nome" placeholder="O NOME É NECESSÁRIO" class="inputo">
-                        <button type="button" class="enter" onclick="criarGrupo()">PRONTO</button>
+                            ">NOME</span>
+                        <input type="text" id="modalinput" name="nome" placeholder="O NOME É NECESSÁRIO" class="inputo">
+                        <button type="button" id="modalbutton" class="enter" onclick="criarGrupo()">PRONTO</button>
                     </div>
 
                 </div>

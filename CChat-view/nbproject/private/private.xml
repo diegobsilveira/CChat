@@ -10,13 +10,13 @@
             <file>file:/I:/CHAT/CChat-view/web/room.jsp</file>
         </group>
         <group>
+            <file>file:/C:/Users/Igor/Desktop/CHAT-master/CHAT/CChat-view/src/java/cchat/controller/userList.java</file>
             <file>file:/C:/Users/Igor/Desktop/CHAT-master/CHAT/CChat-view/src/java/cchat/controller/mensagemIn.java</file>
             <file>file:/C:/Users/Igor/Desktop/CHAT-master/CHAT/CChat-view/web/room.jsp</file>
             <file>file:/C:/Users/Igor/Desktop/CHAT-master/CHAT/CChat-view/src/java/cchat/controller/ServletWeb.java</file>
             <file>file:/C:/Users/Igor/Desktop/CHAT-master/CHAT/CChat-view/src/java/cchat/controller/mensagemOut.java</file>
-            <file>file:/C:/Users/Igor/Desktop/CHAT-master/CHAT/CChat-view/web/css.css</file>
             <file>file:/C:/Users/Igor/Desktop/CHAT-master/CHAT/CChat-view/web/script.js</file>
-            <file>file:/C:/Users/Igor/Desktop/CHAT-master/CHAT/CChat-view/src/java/cchat/view/proxi/stubMensageiro.java</file>
+            <file>file:/C:/Users/Igor/Desktop/CHAT-master/CHAT/CChat-view/src/java/cchat/controller/Login.java</file>
         </group>
     </open-files>
 </project-private>

@@ -292,3 +292,13 @@ ul::-webkit-scrollbar-thumb {
     display: none; 
     z-index:1000;
 }
+
+#modaltitle{
+    font-size: 48px;
+    font-family: PB;
+    color: #7000ec;
+    font-weight: bold;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
