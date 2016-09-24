@@ -24,8 +24,10 @@ public class adicionarAoGrupo {
             IManterGrupo mg = new stubManterGrupo(host,port);
             Sessao user = new Sessao();
             Grupo group = new Grupo();
+            System.out.println("USER -> "+request.getParameter("user"));
+            System.out.println("GRUPO -> "+request.getParameter("grupo"));
             user.setNome(request.getParameter("user"));
-            group.setNome(request.getParameter("sala"));
+            group.setNome(request.getParameter("grupo"));
             System.out.println("ADD "+user.getNome()+" TO "+group.getNome()+" -> "+mg.adicionar(group, user));
             
         } catch (Exception e) {

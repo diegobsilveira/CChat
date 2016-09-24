@@ -65,7 +65,7 @@ public class GrupoDAO implements IGrupoDAO {
     @Override
     public Grupo consultarPorNome(String nome) throws PersistenciaException {
         for (Grupo atual : listarTodos()) {
-            if (atual.getNome().equals(nome)) {
+            if (atual.getNome().equals(nome)) {    
                 return atual;
             }
         }
