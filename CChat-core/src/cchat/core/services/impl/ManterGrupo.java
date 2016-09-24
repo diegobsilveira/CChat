@@ -88,4 +88,26 @@ public class ManterGrupo implements IManterGrupo {
             return null;
         }
     }
+    
+    @Override
+    public ArrayList<String> listarGruposDoUsuario(Sessao user) {
+        try {
+            IGrupoDAO grupoDAO = new GrupoDAO();
+            ArrayList<String> retorno = new ArrayList<>();
+            if (grupoDAO.listarTodos().size() >0) {
+                for (Grupo atual : grupoDAO.listarTodos()) {
+                    boolean presente = false;
+                    for(Sessao u : atual.getDestinos()){
+                        if(user.equals(u)){
+                            presente = true;
+                        }
+                    }
+                    if(presente) retorno.add(atual.getNome());
+                }
+            }
+            return retorno;
+        } catch (PersistenciaException ex) {
+            return null;
+        }
+    }
 }

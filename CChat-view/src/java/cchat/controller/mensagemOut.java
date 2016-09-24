@@ -39,7 +39,6 @@ public class mensagemOut {
                     ((Sessao)destino).setNome(rawMsg.split("\"")[1]);
                     rawMsg = rawMsg.substring(rawMsg.indexOf("\"")+1);
                     rawMsg = rawMsg.substring(rawMsg.indexOf("\"")+1);
-                    System.out.println(destino.getNome());
                     break;
                 default:
                     destino = new Grupo();
@@ -51,7 +50,6 @@ public class mensagemOut {
             msg.setOrigem((Sessao) request.getSession().getAttribute("user"));
             msg.setDestino(destino);
             mensageiro.send(msg);
-            System.out.println(msg.getMensagem());
         } catch (Exception e) {
         }        
     }

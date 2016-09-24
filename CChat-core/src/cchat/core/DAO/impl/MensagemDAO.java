@@ -92,7 +92,8 @@ public class MensagemDAO implements IMensagemDAO {
                         novo.add(atual);
                     }
                 }else{
-                    if(atual.getDestino().getNome().equals(destino.getNome())){
+                    if(atual.getDestino().getNome().equals(destino.getNome()) ||
+                       atual.getOrigem().getNome().equals(destino.getNome())){
                         novo.add(atual);
                     }
                 }

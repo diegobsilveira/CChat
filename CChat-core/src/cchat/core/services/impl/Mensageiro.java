@@ -14,6 +14,7 @@ import cchat.core.DAO.IMensagemDAO;
 import cchat.core.DAO.impl.GrupoDAO;
 import cchat.core.DAO.impl.MensagemDAO;
 import cchat.core.util.exception.PersistenciaException;
+import cchat.core.util.exception.SemanticaException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -31,10 +32,17 @@ public class Mensageiro implements IMensageiro {
             IMensagemDAO mensagemDAO = new MensagemDAO();
             IGrupoDAO grupoDAO = new GrupoDAO();
             if (msg.getDestino() instanceof Grupo) {
+                boolean presente = false;
                 Grupo groupDest = (Grupo) msg.getDestino();
                 groupDest.setDestinos(
                         grupoDAO.consultarPorNome(groupDest.getNome()).getDestinos()
                 );
+                for (Sessao atual : groupDest.getDestinos()) {
+                    if(atual.equals(msg.getOrigem())) presente = true;
+                }
+                if(!presente) throw new SemanticaException("Usuario não pode "
+                        + "enviar mensagem para um grupo ao qual ele "
+                        + "não pertence");
                 for (Sessao atual : groupDest.getDestinos()) {
                     Grupo novo = new Grupo();
                     ArrayList<Sessao> lista = new ArrayList<>();
@@ -54,14 +62,8 @@ public class Mensageiro implements IMensageiro {
             } else {
                 msg.setEnvio(new Date());
                 mensagemDAO.inserir(msg);
-                Mensagem clone = new Mensagem();
-                clone.setOrigem((Sessao) msg.getDestino());
-                clone.setMensagem(msg.getMensagem());
-                clone.setDestino(msg.getOrigem());
-                clone.setEnvio(msg.getEnvio());
-                mensagemDAO.inserir(clone);
             }
-        } catch (PersistenciaException ex) {
+        } catch (SemanticaException | PersistenciaException ex) {
             Logger.getLogger(Mensageiro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -72,7 +74,9 @@ public class Mensageiro implements IMensageiro {
             IMensagemDAO mensagemDAO = new MensagemDAO();
             ArrayList<Mensagem> result = mensagemDAO.mensagensPorDestinatario(user);
             for(Mensagem msg : result){
+                if(!msg.getOrigem().equals(user) || msg.getDestino() instanceof Grupo){
                     mensagemDAO.excluir(msg);
+                }
             }
             return result;
         } catch (PersistenciaException ex) {

@@ -21,4 +21,5 @@ public interface IManterGrupo {
     public boolean sairGrupo(Grupo group);
     
     public ArrayList<String> listarGrupos();
+    public ArrayList<String> listarGruposDoUsuario(Sessao user);
 }

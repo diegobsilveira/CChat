@@ -5,6 +5,7 @@
  */
 package cchat.controller;
 
+import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IManterGrupo;
 import cchat.view.proxi.stubManterGrupo;
 import java.util.ArrayList;
@@ -20,8 +21,9 @@ class groupList {
         int port = 2223;
         
         try {  
+            Sessao user = (Sessao)request.getSession().getAttribute("user");
             IManterGrupo manter = new stubManterGrupo(host,port);
-            ArrayList<String> users = manter.listarGrupos();
+            ArrayList<String> users = manter.listarGruposDoUsuario(user);
             return users;          
             
         } catch (Exception e) {

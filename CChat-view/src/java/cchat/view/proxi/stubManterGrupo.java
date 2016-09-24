@@ -85,4 +85,20 @@ public class stubManterGrupo implements IManterGrupo{
         }
     }
 
+    @Override
+    public ArrayList<String> listarGruposDoUsuario(Sessao user) {
+        try {
+            socket = new Socket(host, port);
+            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
+            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
+            out.writeObject(Request.LISTAR_GRUPOS);
+            out.writeObject(user);
+            out.flush();
+            ArrayList<String> resposta = (ArrayList<String>) in.readObject();
+            return resposta;
+        } catch (IOException | ClassNotFoundException ex) {
+            return null;
+        }
+    }
+
 }

@@ -106,7 +106,8 @@ public class msgSkeleton implements Runnable {
                     writer.flush();
                     break;
                 case LISTAR_GRUPOS:
-                    writer.writeObject(manterGrupo.listarGrupos());
+                    user = (Sessao) reader.readObject();
+                    writer.writeObject(manterGrupo.listarGruposDoUsuario(user));
                     writer.flush();
                     break;
             }

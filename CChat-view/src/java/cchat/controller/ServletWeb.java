@@ -79,13 +79,21 @@ public class ServletWeb extends HttpServlet {
                         p.append("<org>").append(msg.getOrigem().getNome()).append("</org>");
                         p.append("<dst>").append(msg.getDestino().getNome()).append("</dst>");
                     }else{
-                        p.append("<org>").append(msg.getDestino().getNome()).append("</org>");
-                        p.append("<dst>PRIVADO COM ").append(msg.getOrigem().getNome()).append("</dst>");
+                        Sessao user = (Sessao)request.getSession().getAttribute("user");
+                        if(msg.getOrigem().equals(user)){
+                            p.append("<org>").append(msg.getOrigem().getNome()).append("</org>");
+                            p.append("<dst>PRIVADO COM ").append(msg.getDestino().getNome()).append("</dst>");
+                        }
+                        else{
+                            p.append("<org>").append(msg.getOrigem().getNome()).append("</org>");
+                            p.append("<dst>PRIVADO COM ").append(msg.getOrigem().getNome()).append("</dst>");
+                        }
                     }
                     p.append("<date>").append((new Long(msg.getEnvio().getTime())).toString()).append("</date>");
                     p.append("</msg>"); 
                 }
                 p.append("</mensagens>");
+                response.getWriter().write(jsp);
                 break;
             case "addToGroup":
                 adicionarAoGrupo.execute(request);

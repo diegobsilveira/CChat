@@ -9,13 +9,12 @@ function abobora(){
     usuarionome=document.getElementById("nickname").innerHTML;
     var el = document.getElementById('campo');
     if(el){
-      el.addEventListener('keyup', function(event) {
-        event.preventDefault();
-        if (event.keyCode == 13) {
-            document.getElementById("botao").click();
-        }
-    })
-    
+        el.addEventListener('keyup', function(event) {
+            event.preventDefault();
+            if (event.keyCode == 13) {
+                document.getElementById("botao").click();
+            }
+        });
     }
     
     
@@ -25,7 +24,12 @@ function envia(){
     var msg = document.getElementById("campo").value;
     document.getElementById("campo").value="";
     if(msg !== ""){
-        var http = new XMLHttpRequest();
+        var http;
+        if (window.XMLHttpRequest) {
+            http = new XMLHttpRequest();
+        } else {
+            http = new ActiveXObject("Microsoft.XMLHTTP");
+        }
         http.open("GET", "?acao=sendMessage&type=async&msg="+encodeURI(msg), true);
         http.send();
     }
@@ -33,7 +37,12 @@ function envia(){
 
 var refreshUsers = setInterval(function(){
     
-    var http = new XMLHttpRequest();    
+    var http;
+    if (window.XMLHttpRequest) {
+        http = new XMLHttpRequest();
+    } else {
+        http = new ActiveXObject("Microsoft.XMLHTTP");
+    }   
     var users = document.getElementById("users");
     
     http.onreadystatechange = function() {
@@ -71,7 +80,12 @@ var refreshUsers = setInterval(function(){
 
 var refreshGrupos = setInterval(function(){
     
-    var http = new XMLHttpRequest();    
+    var http;
+    if (window.XMLHttpRequest) {
+        http = new XMLHttpRequest();
+    } else {
+        http = new ActiveXObject("Microsoft.XMLHTTP");
+    }   
     var groups = document.getElementById("groups");
     
     http.onreadystatechange = function() {
@@ -100,7 +114,12 @@ var refreshGrupos = setInterval(function(){
 
 var update = setInterval(function(){
     
-    var http = new XMLHttpRequest();    
+    var http;
+    if (window.XMLHttpRequest) {
+        http = new XMLHttpRequest();
+    } else {
+        http = new ActiveXObject("Microsoft.XMLHTTP");
+    }    
     http.open("GET", "?acao=Update&type=async", true);
     http.send();
     
@@ -109,7 +128,12 @@ var update = setInterval(function(){
 
 var refreshMSG = setInterval(function(){
    
-    var http = new XMLHttpRequest();    
+    var http;
+    if (window.XMLHttpRequest) {
+        http = new XMLHttpRequest();
+    } else {
+        http = new ActiveXObject("Microsoft.XMLHTTP");
+    }   
     var msg = document.getElementById("msgs");
    
     http.onreadystatechange = function() {
@@ -187,7 +211,12 @@ function criarGrupo(){
         modalinput += document.getElementById("modalinput").value;    
         fechaModalGrupo();
         document.getElementById("modalinput").value= "";
-        var http = new XMLHttpRequest();
+        var http;
+        if (window.XMLHttpRequest) {
+            http = new XMLHttpRequest();
+        } else {
+            http = new ActiveXObject("Microsoft.XMLHTTP");
+        }
         http.open("GET", "?acao=createGroup&type=async&grupo=" + encodeURI(modalinput), true);
         http.send();     
     }
@@ -202,7 +231,12 @@ function addToGrupo(n){
         fechaModalGrupo();
         nomeUser = document.getElementById("modalinput").value;
         document.getElementById("modalinput").value= "";
-        var http = new XMLHttpRequest();
+        var http;
+        if (window.XMLHttpRequest) {
+            http = new XMLHttpRequest();
+        } else {
+            http = new ActiveXObject("Microsoft.XMLHTTP");
+        }
         http.open("GET", "?acao=addToGroup&type=async&grupo=" + encodeURI(nomeGrupo) + "&user=" + encodeURI(nomeUser), true);
         http.send();     
     }
