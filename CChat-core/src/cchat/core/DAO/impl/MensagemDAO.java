@@ -12,6 +12,7 @@ import cchat.core.DAO.IMensagemDAO;
 import cchat.core.util.connection.Data;
 import cchat.core.util.exception.PersistenciaException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -104,4 +105,13 @@ public class MensagemDAO implements IMensagemDAO {
         }
     }
 
+        public void refreshList() throws PersistenciaException {
+        Data dados = Data.getInstance();
+        for(Mensagem atual : listarTodos()){
+            if(atual.getEnvio().getTime() < (new Date()).getTime()-30000){
+                this.excluir(atual);
+            }
+        }
+    }
+    
 }

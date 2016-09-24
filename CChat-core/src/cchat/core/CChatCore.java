@@ -5,6 +5,7 @@
  */
 package cchat.core;
 
+import cchat.core.DAO.impl.MensagemDAO;
 import cchat.core.DAO.impl.SessaoDAO;
 import cchat.core.skeleton.msgSkeleton;
 import cchat.core.util.exception.PersistenciaException;
@@ -31,7 +32,9 @@ public class CChatCore {
                     try {
                         while (true) {
                             SessaoDAO sessaoDAO = new SessaoDAO();
+                            MensagemDAO msgDAO = new MensagemDAO();
                             sessaoDAO.refreshList();
+                            msgDAO.refreshList();
                             Thread.sleep(30000);
                         }
                     } catch (InterruptedException | PersistenciaException ex) {
