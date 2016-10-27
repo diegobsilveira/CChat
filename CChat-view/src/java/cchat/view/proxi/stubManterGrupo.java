@@ -8,12 +8,9 @@ package cchat.view.proxi;
 import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IManterGrupo;
-import cchat.common.util.AbstractInOut;
-import cchat.common.util.Request;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 /**
@@ -22,83 +19,41 @@ import java.util.ArrayList;
  */
 public class stubManterGrupo implements IManterGrupo{
     
-    private Socket socket;
-    private String host = "localhost";
-    private int port = 2223;
-
-    public stubManterGrupo() {
+    Registry registry;
+    IManterGrupo grupo;
+    
+    public stubManterGrupo(){
+        try{
+            registry = LocateRegistry.getRegistry("localhost",2345);
+            grupo = (IManterGrupo) registry.lookup("grupo");
+        }catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
     }
     
-    public stubManterGrupo(String host, int port) {
-        this.host = host;
-        this.port = port;
-    }
-    
     @Override
-    public boolean criarGrupo(Grupo group) {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.CRIAR_GRUPO);
-            out.writeObject(group);
-            out.flush();
-            return in.readBoolean();
-        } catch (IOException ex) {
-            return false;
-        }
+    public boolean criarGrupo(Grupo group) throws RemoteException{
+        return grupo.criarGrupo(group);
     }
 
     @Override
-    public boolean adicionar(Grupo group, Sessao user) {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.CONVIDAR_PARA_GRUPO);
-            out.writeObject(group);
-            out.writeObject(user);
-            out.flush();
-            return in.readBoolean();
-        } catch (IOException ex) {
-            return false;
-        }
+    public boolean adicionar(Grupo group, Sessao user) throws RemoteException{
+        return grupo.adicionar(group, user);
     }
 
     @Override
-    public boolean sairGrupo(Grupo group) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean sairGrupo(Grupo group) throws RemoteException{
+        return grupo.sairGrupo(group);
     }
 
     @Override
-    public ArrayList<String> listarGrupos() {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.LISTAR_GRUPOS);
-            out.flush();
-            ArrayList<String> resposta = (ArrayList<String>) in.readObject();
-            return resposta;
-        } catch (IOException | ClassNotFoundException ex) {
-            return null;
-        }
+    public ArrayList<String> listarGrupos() throws RemoteException{
+        return grupo.listarGrupos();
     }
 
     @Override
-    public ArrayList<String> listarGruposDoUsuario(Sessao user) {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.LISTAR_GRUPOS);
-            out.writeObject(user);
-            out.flush();
-            ArrayList<String> resposta = (ArrayList<String>) in.readObject();
-            return resposta;
-        } catch (IOException | ClassNotFoundException ex) {
-            return null;
-        }
+    public ArrayList<String> listarGruposDoUsuario(Sessao user) throws RemoteException{
+        return grupo.listarGruposDoUsuario(user);
     }
 
 }

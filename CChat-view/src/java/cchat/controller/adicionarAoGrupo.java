@@ -17,11 +17,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class adicionarAoGrupo {
     public static void execute(HttpServletRequest request) {
-        String host = "localhost";
-        int port = 2223;
-        
+       
         try {                        
-            IManterGrupo mg = new stubManterGrupo(host,port);
+            IManterGrupo mg = new stubManterGrupo();
             Sessao user = new Sessao();
             Grupo group = new Grupo();
             System.out.println("USER -> "+request.getParameter("user"));

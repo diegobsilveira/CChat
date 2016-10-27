@@ -14,6 +14,7 @@ import cchat.core.DAO.ISessaoDAO;
 import cchat.core.DAO.impl.GrupoDAO;
 import cchat.core.DAO.impl.SessaoDAO;
 import cchat.core.util.exception.PersistenciaException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -26,7 +27,7 @@ import java.util.logging.Logger;
 public class ManterUsuario implements IManterUsuario {
 
     @Override
-    public synchronized boolean Logar(Sessao user) {
+    public synchronized boolean Logar(Sessao user) throws RemoteException{
         try {
             ISessaoDAO sessaoDAO = new SessaoDAO();
             if(sessaoDAO.inserir(user) != null){
@@ -45,7 +46,7 @@ public class ManterUsuario implements IManterUsuario {
     }
 
     @Override
-    public synchronized boolean upToDate(Sessao user) {
+    public synchronized boolean upToDate(Sessao user) throws RemoteException{
         try {
             ISessaoDAO sessaoDAO = new SessaoDAO();
             Sessao novo = sessaoDAO.consultarPorNome(user.getNome());
@@ -62,7 +63,7 @@ public class ManterUsuario implements IManterUsuario {
     }
 
     @Override
-    public ArrayList<String> listarUsuarios() {
+    public ArrayList<String> listarUsuarios() throws RemoteException{
         ISessaoDAO sessaoDAO = new SessaoDAO();
         try {
             ArrayList<String> lista = new ArrayList<>();

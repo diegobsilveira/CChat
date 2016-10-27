@@ -7,13 +7,15 @@ package cchat.common.services;
 
 import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Sessao;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
  *
  * @author Nome
  */
-public interface IMensageiro {
-    public void send(Mensagem msg);
-    public ArrayList<Mensagem> get(Sessao user);
+public interface IMensageiro extends Remote{
+    public void send(Mensagem msg) throws RemoteException;
+    public ArrayList<Mensagem> get(Sessao user) throws RemoteException;
 }

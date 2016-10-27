@@ -13,11 +13,9 @@ public class userList {
     
     public static ArrayList<String> execute(HttpServletRequest request) {
         String jsp = "room.jsp";
-        String host = "localhost";
-        int port = 2223;
         
         try {  
-            IManterUsuario manter = new stubManterUsuario(host,port);
+            IManterUsuario manter = new stubManterUsuario();
             ArrayList<String> users = manter.listarUsuarios();
             return users;          
             

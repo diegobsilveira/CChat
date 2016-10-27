@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 /**
@@ -21,63 +24,31 @@ import java.util.ArrayList;
  */
 public class stubManterUsuario implements IManterUsuario {
 
-    private Sessao user;
-    private Socket socket;
-    private String host = "localhost";
-    private int port = 2223;
+    Registry registry;
+    IManterUsuario usuario;
 
-    public stubManterUsuario(String host, int port) {
-        this.host = host;
-        this.port = port;
-    }
-
-    @Override
-    public boolean Logar(Sessao user) {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            
-            out.writeObject(Request.LOGAR);
-            out.writeObject(user);
-            out.flush();
-            boolean resposta = in.readBoolean();
-            if(resposta)
-                this.user = user;
-            return resposta;
-        } catch (IOException ex) {
-            return false;
+    public stubManterUsuario() {
+        try{
+            registry = LocateRegistry.getRegistry("localhost",2345);
+            usuario = (IManterUsuario) registry.lookup("usuario");
+        }catch(Exception ex){
+            throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public boolean upToDate(Sessao user) {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.UPTODATE);
-            out.writeObject(user);
-            out.flush();
-            return in.readBoolean();
-        } catch (IOException ex) {
-            return false;
-        }
+    public boolean Logar(Sessao user) throws RemoteException {
+        return usuario.Logar(user);
+    }
+
+    @Override
+    public boolean upToDate(Sessao user) throws RemoteException {
+        return usuario.upToDate(user);
     }
     
     @Override
-    public ArrayList<String> listarUsuarios() {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.LISTAR_USUARIOS);
-            out.flush();
-            ArrayList<String> resposta = (ArrayList<String>) in.readObject();
-            return resposta;
-        } catch (IOException | ClassNotFoundException ex) {
-            return null;
-        }
+    public ArrayList<String> listarUsuarios() throws RemoteException {
+        return usuario.listarUsuarios();
     }
 
 }

@@ -11,6 +11,7 @@ import cchat.common.services.IManterGrupo;
 import cchat.core.DAO.IGrupoDAO;
 import cchat.core.DAO.impl.GrupoDAO;
 import cchat.core.util.exception.PersistenciaException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class ManterGrupo implements IManterGrupo {
 
     @Override
-    public synchronized boolean criarGrupo(Grupo group) {
+    public synchronized boolean criarGrupo(Grupo group) throws RemoteException {
         try {
             IGrupoDAO grupoDAO = new GrupoDAO();
             return grupoDAO.inserir(group) != null;
@@ -30,20 +31,18 @@ public class ManterGrupo implements IManterGrupo {
     }
 
     @Override
-    public synchronized boolean adicionar(Grupo group, Sessao user) {
+    public synchronized boolean adicionar(Grupo group, Sessao user)  throws RemoteException{
         try {
             IGrupoDAO grupoDAO = new GrupoDAO();
             Grupo grupo = grupoDAO.consultarPorNome(group.getNome());
-            for (Sessao entrada : group.getDestinos()) {
-                boolean existe = false;
-                for (Sessao atual : grupo.getDestinos()) {
-                    if (atual.equals(entrada)) {
-                        existe = true;
-                    }
+            boolean existe = false;
+            for (Sessao atual : grupo.getDestinos()) {
+                if (atual.equals(user.getNome())) {
+                    existe = true;
                 }
-                if (!existe) {
-                    grupo.getDestinos().add(entrada);
-                }
+            }
+            if (!existe) {
+                grupo.getDestinos().add(user);
             }
             return grupoDAO.atualizar(grupo);
         } catch (PersistenciaException ex) {
@@ -52,7 +51,7 @@ public class ManterGrupo implements IManterGrupo {
     }
 
     @Override
-    public synchronized boolean sairGrupo(Grupo group) {
+    public synchronized boolean sairGrupo(Grupo group)  throws RemoteException{
         try {
             IGrupoDAO grupoDAO = new GrupoDAO();
             Grupo grupo = grupoDAO.consultarPorNome(group.getNome());
@@ -74,7 +73,7 @@ public class ManterGrupo implements IManterGrupo {
     }
 
     @Override
-    public ArrayList<String> listarGrupos() {
+    public ArrayList<String> listarGrupos()  throws RemoteException{
         try {
             IGrupoDAO grupoDAO = new GrupoDAO();
             ArrayList<String> retorno = new ArrayList<>();
@@ -90,7 +89,7 @@ public class ManterGrupo implements IManterGrupo {
     }
     
     @Override
-    public ArrayList<String> listarGruposDoUsuario(Sessao user) {
+    public ArrayList<String> listarGruposDoUsuario(Sessao user)  throws RemoteException{
         try {
             IGrupoDAO grupoDAO = new GrupoDAO();
             ArrayList<String> retorno = new ArrayList<>();

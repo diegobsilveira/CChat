@@ -19,11 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 public class mensagemIn {
     
     public static ArrayList<Mensagem> execute(HttpServletRequest request) {
-        String host = "localhost";
-        int port = 2223;
-        
         try {  
-            IMensageiro mensageiro = new stubMensageiro(host,port);
+            IMensageiro mensageiro = new stubMensageiro();
             ArrayList<Mensagem> msg = mensageiro.get((Sessao) request.getSession().getAttribute("user"));
             
             return msg;

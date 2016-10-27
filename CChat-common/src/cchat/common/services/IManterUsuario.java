@@ -6,17 +6,19 @@
 package cchat.common.services;
 
 import cchat.common.model.domain.impl.Sessao;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
  *
  * @author Aluno
  */
-public interface IManterUsuario {
+public interface IManterUsuario extends Remote{
 
-    public boolean Logar(Sessao user);
+    public boolean Logar(Sessao user) throws RemoteException;
     
-    public boolean upToDate(Sessao user); 
+    public boolean upToDate(Sessao user) throws RemoteException; 
     
-    public ArrayList<String> listarUsuarios(); 
+    public ArrayList<String> listarUsuarios() throws RemoteException; 
 }

@@ -8,12 +8,9 @@ package cchat.view.proxi;
 import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Sessao;
 import cchat.common.services.IMensageiro;
-import cchat.common.util.AbstractInOut;
-import cchat.common.util.Request;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 /**
@@ -22,39 +19,24 @@ import java.util.ArrayList;
  */
 public class stubMensageiro implements IMensageiro{
 
-    private Socket socket;
-    private String host = "localhost";
-    private int port = 2223;
+    Registry registry;
+    IMensageiro mensageiro;
 
-    public stubMensageiro(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public stubMensageiro() {
+        try{
+            registry = LocateRegistry.getRegistry("localhost",2345);
+            mensageiro = (IMensageiro) registry.lookup("mensageiro");
+        }catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
     }
     @Override
-    public void send(Mensagem msg) {
-        try {
-            socket = new Socket(host, port);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.ENVIAR_MENSAGEM);
-            out.writeObject(msg);
-            out.flush();
-        } catch (IOException ex) {
-            
-        }
+    public void send(Mensagem msg) throws RemoteException {
+        mensageiro.send(msg);
     }
     
     @Override
-    public ArrayList<Mensagem> get(Sessao user) {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.RECEBER_MENSAGEM);
-            out.writeObject(user);
-            out.flush();
-            return (ArrayList<Mensagem>) in.readObject();
-        } catch (IOException | ClassNotFoundException ex) {
-            return null;
-        }
+    public ArrayList<Mensagem> get(Sessao user) throws RemoteException {
+        return mensageiro.get(user);
     }
 }

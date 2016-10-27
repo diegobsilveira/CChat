@@ -2,14 +2,13 @@ package cchat.view;
 
 import cchat.common.model.domain.impl.Sessao;
 import cchat.view.proxi.stubManterUsuario;
+import java.rmi.RemoteException;
 
 public class CChatView {
 
-    public static void main(String args[]) {
-        String IPServidor = "localhost";
-        int PortaServidor = 2223;
-
-        stubManterUsuario credenciar = new stubManterUsuario(IPServidor, PortaServidor);
+    public static void main(String args[]) throws RemoteException {
+    
+        stubManterUsuario credenciar = new stubManterUsuario();
         Sessao user = new Sessao();
 
         user.setNome("cleberson");

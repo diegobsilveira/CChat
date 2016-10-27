@@ -17,11 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 class Update {
 
     public static void execute(HttpServletRequest request) {
-        String host = "localhost";
-        int port = 2223;
         try {
             Sessao user = (Sessao)request.getSession().getAttribute("user");
-            IManterUsuario manter = new stubManterUsuario(host, port);
+            IManterUsuario manter = new stubManterUsuario();
             manter.upToDate(user);
 
         } catch (Exception e) {

@@ -16,13 +16,10 @@ import javax.servlet.http.HttpServletRequest;
  * @author Aluno
  */
 class groupList {
-    public static ArrayList<String> execute(HttpServletRequest request) {
-        String host = "localhost";
-        int port = 2223;
-        
+    public static ArrayList<String> execute(HttpServletRequest request) {      
         try {  
             Sessao user = (Sessao)request.getSession().getAttribute("user");
-            IManterGrupo manter = new stubManterGrupo(host,port);
+            IManterGrupo manter = new stubManterGrupo();
             ArrayList<String> users = manter.listarGruposDoUsuario(user);
             return users;          
             

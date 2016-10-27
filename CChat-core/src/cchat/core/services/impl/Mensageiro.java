@@ -15,6 +15,7 @@ import cchat.core.DAO.impl.GrupoDAO;
 import cchat.core.DAO.impl.MensagemDAO;
 import cchat.core.util.exception.PersistenciaException;
 import cchat.core.util.exception.SemanticaException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -27,7 +28,7 @@ import java.util.logging.Logger;
 public class Mensageiro implements IMensageiro {
 
     @Override
-    public synchronized void send(Mensagem msg) {
+    public synchronized void send(Mensagem msg) throws RemoteException{
         try {
             IMensagemDAO mensagemDAO = new MensagemDAO();
             IGrupoDAO grupoDAO = new GrupoDAO();
@@ -69,7 +70,7 @@ public class Mensageiro implements IMensageiro {
     }
 
     @Override
-    public ArrayList<Mensagem> get(Sessao user){
+    public ArrayList<Mensagem> get(Sessao user) throws RemoteException{
         IMensagemDAO mensagemDAO = new MensagemDAO();
         ArrayList<Mensagem> result = mensagemDAO.mensagensPorDestinatario(user);
         return result;

@@ -20,14 +20,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 class createGroup {
     public static ArrayList<String> execute(HttpServletRequest request) {
-        String host = "localhost";
-        int port = 2223;
-        
-       
         try {
             System.out.println(request.getParameter("grupo"));
             if(!request.getParameter("grupo").matches("\"")){
-                IManterGrupo manter = new stubManterGrupo(host,port);
+                IManterGrupo manter = new stubManterGrupo();
                 ArrayList<Sessao> destinos = new ArrayList<>();
                 destinos.add((Sessao) request.getSession().getAttribute("user"));
                 Grupo grupo = new Grupo();

@@ -19,11 +19,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class mensagemOut {
     public static void execute(HttpServletRequest request) {
-        String host = "localhost";
-        int port = 2223;
-        
         try {
-            IMensageiro mensageiro = new stubMensageiro(host,port);
+            IMensageiro mensageiro = new stubMensageiro();
             Mensagem msg = new Mensagem();
             IDestinatario destino = null;
             String rawMsg = request.getParameter("msg").trim();

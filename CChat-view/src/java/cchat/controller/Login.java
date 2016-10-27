@@ -14,14 +14,12 @@ public class Login {
     
     public static String execute(HttpServletRequest request) {
         String jsp = "index.jsp";
-        String host = "localhost";
-        int port = 2223;
         
         try {
             String nick = request.getParameter("nick");
             Sessao user = new Sessao();
             user.setNome(nick);
-            IManterUsuario manter = new stubManterUsuario(host,port);
+            IManterUsuario manter = new stubManterUsuario();
             
             if(manter.Logar(user)){        
                 jsp = "/room.jsp";
