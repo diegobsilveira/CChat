@@ -37,6 +37,9 @@ public class GrupoDAO implements IGrupoDAO {
             for (Grupo atual : dados.getGroups()) {
                 if (atual.getNome().equals(obj.getNome())) {
                     atual.setDestinos(obj.getDestinos());
+                    if(atual.getDestinos().size() == 0){
+                        this.excluir(atual);
+                    }
                     return true;
                 }
             }

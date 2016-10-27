@@ -9,8 +9,11 @@ import cchat.common.model.domain.IDestinatario;
 import cchat.common.model.domain.impl.Grupo;
 import cchat.common.model.domain.impl.Mensagem;
 import cchat.common.model.domain.impl.Sessao;
+import cchat.common.services.IManterGrupo;
 import cchat.common.services.IMensageiro;
+import cchat.view.proxi.stubManterGrupo;
 import cchat.view.proxi.stubMensageiro;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -37,6 +40,15 @@ public class mensagemOut {
                     rawMsg = rawMsg.substring(rawMsg.indexOf("\"")+1);
                     rawMsg = rawMsg.substring(rawMsg.indexOf("\"")+1);
                     break;
+                case "\\quit " :
+                    destino = new Grupo();
+                    ArrayList<Sessao> lista = new ArrayList<>();
+                    lista.add((Sessao) request.getSession().getAttribute("user"));
+                    ((Grupo)destino).setNome(rawMsg.split("\"")[1]);
+                    ((Grupo)destino).setDestinos(lista);
+                    IManterGrupo manterGrupo = new stubManterGrupo();
+                    manterGrupo.sairGrupo((Grupo)destino);
+                    return;
                 default:
                     destino = new Grupo();
                     ((Grupo)destino).setNome("GERAL");

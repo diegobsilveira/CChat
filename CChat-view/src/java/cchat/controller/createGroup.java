@@ -33,7 +33,6 @@ class createGroup {
                     throw new PersistenceException("Não foi possivel criar esse grupo");
                 }
                 Sessao user = (Sessao) request.getSession().getAttribute("user");   
-                System.out.println("ADD "+user.getNome()+" TO "+grupo.getNome()+" -> "+manter.adicionar(grupo, user));
             }  
             else{
                 throw new PersistenceException("Não é permitido criar um grupo com o caractere \"");

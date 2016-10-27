@@ -99,7 +99,7 @@ public class SessaoDAO implements ISessaoDAO {
     public void refreshList() throws PersistenciaException {
         Data dados = Data.getInstance();
         for(Sessao atual : listarTodos()){
-            if(atual.getLastAccess().getTime() < (new Date()).getTime()-30000){
+            if(atual.getLastAccess() != null && atual.getLastAccess().getTime() < (new Date()).getTime()-30000){
                 this.excluir(atual);
             }
         }
